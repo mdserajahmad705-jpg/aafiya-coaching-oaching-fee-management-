@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AAFIYA Coaching Centre - Fee Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Crimson+Pro:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--navy:#0a1628;--navy2:#112240;--gold:#c9a84c;--gold2:#e8c97a;--green:#1a7a4a;--red:#c0392b;--blue:#1565c0;--purple:#6a1b9a;--orange:#e65100;--gray:#6b7280;--light:#f3f4f6;--bd:#d1d5db;--shadow:0 4px 24px rgba(10,22,40,.13)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--light);color:var(--navy);font-family:'Crimson Pro',Georgia,serif;font-size:16px;min-height:100vh}
+.pb{background:rgba(0,0,0,.25);background-color:#060e1b;border-bottom:1px solid rgba(201,168,76,.3);color:var(--gold2);text-align:center;padding:6px 12px;font-size:12px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;font-family:'JetBrains Mono',monospace}
+.pb b{font-family:'Playfair Display',Georgia,serif;font-size:14px;color:var(--gold);user-select:none;-webkit-user-select:none;cursor:pointer;letter-spacing:.5px}.pb i{opacity:.4;font-style:normal}
+header{background:linear-gradient(135deg,var(--navy) 60%,#1a2e50 100%);color:#fff;text-align:center;padding:14px 16px 12px;border-bottom:3px solid var(--gold)}
+header h1{margin:6px 0 0;font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,5vw,32px);font-weight:900;color:var(--gold);letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+header div{font-size:14px;color:#b0bec5;margin-top:3px}header div:last-child{color:var(--gold2);font-size:13px}
+nav{display:flex;overflow-x:auto;gap:4px;padding:8px 12px;background:var(--navy2);border-bottom:2px solid var(--gold);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+nav button{flex:0 0 auto;border:1.5px solid transparent;background:transparent;color:#b0bec5;padding:7px 16px;border-radius:6px;font-family:'Crimson Pro',Georgia,serif;font-size:15px;cursor:pointer;white-space:nowrap}
+nav button.on,nav button:hover{background:var(--gold);color:var(--navy);font-weight:700;border-color:var(--gold)}
+main{max-width:980px;margin:auto;padding:14px 12px}.tab{display:none}.tab.on{display:block}
+h3{font-family:'Playfair Display',Georgia,serif;color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.card{background:#fff;border-radius:12px;padding:14px;box-shadow:var(--shadow)}
+.stat{border-left:5px solid var(--gold);text-align:center}.stat small{color:var(--gray);font-size:13px;display:block;order:2}.stat div{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:900;color:var(--navy);margin-top:2px}
+.s2{border-left-color:var(--green)}.s3{border-left-color:var(--blue)}.s4{border-left-color:var(--red)}.s5{border-left-color:var(--purple)}
+input,select{width:100%;padding:10px 12px;border:1.5px solid var(--bd);border-radius:8px;background:#fff;color:var(--navy);font-family:'Crimson Pro',Georgia,serif;font-size:16px}
+input:focus,select:focus{outline:none;border-color:var(--gold)}
+label{display:block;font-size:13px;font-weight:700;color:var(--navy);margin:10px 0 4px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{border:0;border-radius:8px;padding:9px 16px;font-weight:700;cursor:pointer;color:#fff;background:var(--navy);font-family:'Crimson Pro',Georgia,serif;font-size:15px;text-decoration:none;display:inline-block;letter-spacing:.3px}
+.btn:hover{opacity:.88}.g{background:var(--green)}.y{background:var(--gold);color:var(--navy)}.r{background:var(--red)}.b{background:var(--blue)}.big{width:100%;margin-top:12px;padding:12px;font-size:17px}
+#search{margin:0 0 12px;border-color:var(--gold)}
+.wrap{overflow-x:auto;padding:0}table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--navy);color:var(--gold);padding:10px 8px;text-align:left;font-family:'Playfair Display',Georgia,serif;font-size:12px;white-space:nowrap}
+td{padding:9px 8px;border-bottom:1px solid var(--light);white-space:nowrap}
+.tag{padding:2px 9px;border-radius:20px;font-size:12px;font-weight:700}.ok{background:#d9f2e4;color:#12633a}.no{background:#fbe0dc;color:#a02a1d}
+.act{display:flex;gap:4px}.act a,.act button{padding:5px 8px;font-size:12px;border-radius:6px;border:0;color:#fff;text-decoration:none;cursor:pointer}
+.ov{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--navy) 60%,#1a2e50 100%);padding:18px}
+.box{background:#fff;border-radius:18px;padding:30px 26px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.4);border-top:5px solid var(--gold);text-align:center;color:var(--navy)}
+.box h2{margin:0 0 4px;font-family:'Playfair Display',Georgia,serif;color:var(--navy)}.msg{color:var(--red);font-size:13px;min-height:18px}
+.vb{display:flex;flex-direction:column;gap:5px;min-width:150px}.vb a,.vb button{padding:8px 12px;border-radius:7px;border:0;color:#fff;font-size:14px;font-weight:700;text-align:left;white-space:nowrap;text-decoration:none;cursor:pointer;font-family:inherit}
+.mrow{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 8px;-webkit-overflow-scrolling:touch}.mcol{flex:0 0 auto;display:flex;flex-direction:column;gap:4px}.mdel{background:var(--red);color:#fff;border:0;border-radius:8px;padding:8px 6px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;white-space:nowrap}.mch{min-width:92px;border:2px solid var(--bd);border-radius:10px;padding:7px 8px;text-align:center;cursor:pointer;background:#fff;font-size:14px;color:var(--navy)}.mch span{display:block;font-size:11px;margin-top:2px;color:var(--gray)}.mch.pe{border-color:var(--red)}.mch.pe span{color:var(--red)}.mch.pa{border-color:var(--orange)}.mch.pa span{color:var(--orange)}.mch.ad{border-style:dashed}.mch.pd{background:#d9f2e4;border-color:var(--green);cursor:default;opacity:.85}.mch.pd span{color:var(--green)}.mch.on{background:var(--gold);border-color:var(--navy)}.mch.on span{color:var(--navy);font-weight:700}
+.hint{font-size:13px;color:var(--gray)}
+.expiry-toast{position:fixed;top:-20px;left:50%;transform:translate(-50%,-30px);opacity:0;width:min(460px,94vw);z-index:8500;pointer-events:none;transition:opacity .35s ease,transform .35s ease;display:none}
+.expiry-toast.show{opacity:1;transform:translate(-50%,20px);pointer-events:auto}
+.expiry-toast-card{position:relative;background:linear-gradient(160deg,#0a1628 0%,#1a2e50 100%);border:1.5px solid #D4AF37;border-radius:16px;box-shadow:0 12px 34px rgba(0,0,0,.45);padding:26px 26px 22px;color:#fff;max-height:94vh;overflow:auto}
+.expiry-toast-close{position:absolute;top:8px;right:10px;background:none;border:none;color:#c9a84c;font-size:18px;cursor:pointer;line-height:1;padding:4px}
+.expiry-toast-icon{font-size:30px;margin-bottom:8px}
+.expiry-toast-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#D4AF37;margin-bottom:10px;letter-spacing:.3px}
+.expiry-toast-body{font-size:14.5px;line-height:1.7;color:#e6e6e6;margin-bottom:12px}.expiry-toast-body b{color:#fff}
+.expiry-toast-fee{display:inline-block;background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.5);border-radius:9px;padding:8px 16px;color:#D4AF37;font-weight:700;font-size:14.5px;margin-bottom:16px}
+.expiry-toast-amt{font-size:23px;font-weight:900;color:#ffd54a;letter-spacing:.3px}
+.expiry-toast-pay{display:block;text-align:center;background:#fff;color:#202124;text-decoration:none;border-radius:14px;padding:20px 16px;margin:14px 0;font-weight:800;font-size:16px;line-height:1.5;box-shadow:0 6px 20px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.15)}
+.expiry-toast-pay:active{transform:scale(.98)}
+.gpay-logo-row{display:flex;align-items:center;justify-content:center;margin-bottom:8px;gap:10px}
+.expiry-toast-upi{display:block;font-size:12px;font-weight:600;color:#5f6368;letter-spacing:.2px;margin-top:6px}
+.expiry-toast-contact{border-top:1px solid rgba(212,175,55,.25);padding-top:10px;font-size:12.5px;color:#D4AF37;line-height:1.9;font-weight:600}
+.payHow{text-align:left;color:#ccc;font-size:13px;line-height:1.7;margin:12px 0;padding-left:20px}
+.sb{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;padding:7px 12px;border-radius:20px;font-size:13px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.25)}.sb.ok{background:#d9f2e4;color:#12633a}.sb.bad{background:#fbe0dc;color:#a02a1d}
+</style></head><body>
+
+<div class="ov" id="login" style="display:flex">
+ <div class="box"><div style="font-size:42px">🎓</div><h2>AAFIYA Coaching Centre</h2><div class="hint">Fee Management - Login</div>
+ <label style="text-align:left">Email (User ID)</label><input id="lu" type="email" autocomplete="username">
+ <label style="text-align:left">Password</label><input id="lp" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+ <div class="msg" id="le"></div><button class="btn big" style="margin-top:4px" onclick="doLogin()">🔐 Login</button></div></div>
+
+<div class="ov" id="pn" style="align-items:flex-start;overflow:auto"><div class="box" id="pnb" style="max-width:460px;text-align:left;margin:10px auto"></div></div>
+<div class="ov" id="lock"><div class="box" style="background:#0a0a0a;color:#fff;max-height:94vh;overflow:auto">
+ <div id="lockIcon" style="font-size:52px;cursor:pointer;user-select:none" onclick="devTap()">🔒</div>
+ <h2 style="color:var(--gold)">Subscription Expired</h2>
+ <p style="font-size:14px;color:#ccc">Please pay <b id="lockAmt"></b> to the developer to reactivate your Fee Management System.</p>
+ <a class="expiry-toast-pay payLink" href="#" target="_blank" rel="noopener"><span class="gpay-logo-row"><span class="gpay-slot"></span><b style="font-weight:800;font-size:20px;color:#3c4043">Google Pay</b></span><span style="color:#1a73e8;font-weight:800">Click here to Pay <span class="payAmt"></span> via Google Pay</span><br><span class="expiry-toast-upi">UPI ID: sarjil52.sab-1@okicici</span></a>
+ <button class="btn y" style="width:100%" onclick="copyUpi()">📋 Copy UPI ID</button>
+ <ol class="payHow"><li>Tap the <b>Google Pay</b> button above (it opens your UPI app) — or pay manually to the UPI ID <b>sarjil52.sab-1@okicici</b>.</li><li>Pay the renewal amount shown above.</li><li>Send the payment screenshot to the developer on <b>9576739852</b>.</li><li>Your system is reactivated once the developer confirms the payment.</li></ol>
+ <p style="color:var(--gold);font-weight:700;line-height:2">👤 Md Seraj Ahmad<br>📞 9576739852<br>✉️ seraj52.sab@gmail.com</p></div></div>
+
+<div class="ov" id="dev"><div class="box">
+ <h2>Developer Access</h2>
+ <div id="devA"><label style="text-align:left">Developer Email (User ID)</label><input id="dm" type="email" autocomplete="off"><label style="text-align:left">Password</label><input id="dp" type="password" autocomplete="off" onkeydown="if(event.key==='Enter')devLogin()"><div class="msg" id="de"></div>
+  <button class="btn big" onclick="devLogin()">Login</button></div>
+ <div id="devB" style="display:none;text-align:left">
+  <div class="hint" id="devS"></div>
+  <label>Valid Until (blank = no limit)</label><input id="dd" type="date">
+  <label>Renewal Amount (₹)</label><input id="da" type="number">
+  <div class="row" style="margin-top:12px"><button class="btn g" onclick="devSet('active')">✅ Enable</button><button class="btn r" onclick="devSet('blocked')">⛔ Block</button></div></div>
+ <button class="btn" style="margin-top:12px;background:#6b7280;width:100%" onclick="devClose()">Close</button></div></div>
+
+<div class="pb"><span>Powered by</span><i>|</i><b onclick="devTap()">🎓 Seraj Edu Fee Management System</b><i>|</i><span>📞 +91 95767 39852</span></div>
+<header><h1>🎓 AAFIYA COACHING CENTRE</h1>
+<div>Narahua Tapu, Pathraha, Ward No-05, Post: Ghurna Bazar, Dist: Araria, Bihar - 854336</div>
+<div>Chairperson: Md Hasangir Khan | Contact: 9262515150</div></header>
+<nav id="nav"></nav>
+<main>
+<section class="tab" id="t-home"><div style="position:relative;margin-bottom:12px"><input id="search" autocomplete="off" style="margin:0" placeholder="🔍 Search student, father, mobile or class..." oninput="PICK=null;renderList()" onfocus="renderList()"><div id="sug" style="display:none;position:absolute;left:0;right:0;top:100%;margin-top:4px;background:#fff;border:1.5px solid var(--gold);border-radius:10px;box-shadow:var(--shadow);z-index:20;max-height:320px;overflow:auto"></div></div>
+ <div class="grid" id="cards"></div>
+ <div id="panel"></div><div id="results"></div><div id="listCard"><h3>Students</h3><div class="card wrap"><table id="list"></table></div></div></section>
+
+<section class="tab" id="t-add"><div class="card"><h3 style="margin:0">➕ Add Student</h3>
+ <label>Student Name</label><input id="an"><label>Father's Name</label><input id="af">
+ <label>Mobile Number</label><input id="am" type="tel" maxlength="10" inputmode="numeric">
+ <div class="row"><div><label>Class</label><select id="ac" onchange="autoFee()"></select></div><div><label>Section</label><select id="as"><option>A</option><option>B</option></select></div></div>
+ <div class="row"><div><label>Monthly Fee (₹) - editable</label><input id="afee" type="number"></div><div><label>Admission Fee (One Time) (₹) - editable</label><input id="aadm" type="number" value="500"></div></div>
+ <div class="row"><div><label>Date (live)</label><input id="ad" type="date"></div></div>
+ <button class="btn g big" onclick="saveStudent()">💾 Save &amp; Send WhatsApp</button></div></section>
+
+
+<section class="tab" id="t-cls"><div class="card"><h3 style="margin:0">📚 Class-wise Fee Detail</h3>
+ <div class="row"><div><label>Class</label><select id="cc" onchange="renderCls()"></select></div><div><label>Month</label><input type="month" id="cm" onchange="renderCls()"></div></div>
+ <button class="btn big" style="margin-top:10px" onclick="clsPdf()">📄 PDF Report for This Class</button></div><div id="clsOut"></div></section>
+<section class="tab" id="t-ctl"><div class="card"><h3 style="margin:0">🛡 Control Panel - Staff Access</h3><div class="hint">Staff can use everything (collect payments, add and delete students and payments) except the Control Panel and Trash. Dashboard amounts stay locked (🔐) for staff. Everything a staff member deletes goes to Trash, which only the Owner can see. Email and password are created in Firebase Authentication; a new user appears below after the first login.</div>
+ <div class="row"><div><label>Staff Name</label><input id="sn"></div><div><label>Email (User ID)</label><input id="su" type="email" autocomplete="off"></div></div>
+ <button class="btn g big" onclick="addStaff()">➕ Add Staff</button></div><div id="newUsers"></div><div id="staffList"></div></section>
+<section class="tab" id="t-trash"><div class="card"><h3 style="margin:0">🗑 Trash Folder (Owner only)</h3><div class="hint">Deleted students and payments appear here, along with who deleted them. You can restore them or delete them forever.</div><button class="btn r" style="margin-top:8px" onclick="emptyTrash()">Empty Trash</button></div><div id="trashList" style="margin-top:10px"></div></section>
+<section class="tab" id="t-fees"><div class="card"><h3 style="margin:0">📋 Class-wise Monthly Fee (editable)</h3><div class="grid" id="feeGrid" style="margin-top:10px"></div>
+ <button class="btn g big" onclick="saveFees()">💾 Save Fee Structure</button>
+ </div></section>
+
+<section class="tab" id="t-rep"><div class="card"><h3 style="margin:0">📊 Reports</h3>
+ <div class="row"><div><label>Month</label><input type="month" id="rm"></div><div><label>Class (optional)</label><select id="rc"></select></div></div>
+ <button class="btn big" onclick="monthReport()">📄 Month-wise Report (PDF)</button>
+ <button class="btn r big" onclick="allDemand()">📑 All Demand Bills (PDF)</button>
+ <button class="btn y big" onclick="pendingReport()">📄 Full Pending Report (PDF)</button>
+ <button class="btn b big" onclick="todayReport()">📄 Today's Collection (PDF)</button>
+ <hr style="border:0;border-top:1px solid var(--bd);margin:16px 0">
+ <button class="btn g" onclick="backup()">⬇️ Backup</button> <label style="display:inline-block" class="btn y">⬆️ Restore<input type="file" accept=".json" hidden onchange="restore(event)"></label></div></section>
+<section class="tab" id="t-bk"><div class="grid" id="bkStats"></div>
+ <div class="card" style="margin-top:12px"><h3 style="margin:0 0 6px">📥 Download Backup</h3><div class="hint">Saves ALL data (students, payments, fees, staff, trash) as a .json file on this device — independent of the internet and the database. Take a backup after finishing your work.</div>
+  <button class="btn y big" onclick="backup()">📥 Download Backup Now</button>
+  <label class="hint" style="display:flex;gap:8px;align-items:center;margin-top:12px"><input type="checkbox" id="bkAuto" style="width:auto" onchange="setAutoFile(this.checked)"> Automatically download one backup file per day</label></div>
+ <div class="card" style="margin-top:12px" id="bkRestoreCard"></div>
+ <div class="card" style="margin-top:12px"><h3 style="margin:0 0 6px">🕒 Safety Snapshots</h3><div class="hint">Saved automatically on this device before every delete / restore / big change. ⬇️ downloads a snapshot; ↩️ Restore (Owner) brings it back.</div><div id="bkSnaps"></div></div>
+ <div class="card" style="margin-top:12px"><h3 style="margin:0 0 6px">📡 Sync Log</h3><div id="bkLog" class="hint"></div></div>
+</section>
+</main>
+<div id="syncBadge" class="sb" style="display:none"></div>
+<div id="expiryReminderToast" class="expiry-toast"><div class="expiry-toast-card">
+ <button class="expiry-toast-close" onclick="closeExpiryReminder()">✕</button>
+ <div class="expiry-toast-icon">⚠️</div><div class="expiry-toast-title">Subscription Expiry Reminder</div>
+ <div class="expiry-toast-body">Your Fee Management System subscription will expire <b>tomorrow</b> (<span id="expiryReminderDate"></span>).<br><br>Please renew your subscription to avoid any interruption in service.</div>
+ <div class="expiry-toast-fee">Renewal Fee: <span class="expiry-toast-amt payAmt"></span></div>
+ <a class="expiry-toast-pay payLink" href="#" target="_blank" rel="noopener"><span class="gpay-logo-row"><span class="gpay-slot"></span><b style="font-weight:800;font-size:20px;color:#3c4043">Google Pay</b></span><span style="color:#1a73e8;font-weight:800">Click here to Pay <span class="payAmt"></span> via Google Pay</span><br><span class="expiry-toast-upi">UPI ID: sarjil52.sab-1@okicici</span></a>
+ <div class="expiry-toast-contact">Contact Developer:<br>Md. Seraj Ahmad<br>📞 9576739852<br>📧 seraj52.sab@gmail.com</div>
+</div></div>
+
+<script>
+window.addEventListener('error',e=>{const l=document.getElementById('le');if(l&&/^⏳/.test(l.textContent))l.textContent='❌ JS error: '+e.message});
+window.addEventListener('unhandledrejection',e=>{const l=document.getElementById('le');if(l&&/^⏳/.test(l.textContent))l.textContent='❌ Error: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)});
+const $=id=>document.getElementById(id);
+const CL=['JKG','SKG','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+const DEF={};CL.forEach((c,i)=>DEF[c]=500+i*50);
+const DEV='© 2026 Seraj Edu Fee Management System. For School Management Software & Custom Solutions, Contact: +91 95767 39852 | seraj52.sab@gmail.com';
+const NAME='AAFIYA COACHING CENTRE',ADDR='Narahua Tapu, Pathraha, Ward No-05, Post: Ghurna Bazar, Dist: Araria, Bihar - 854336',DIR='Chairperson: Md Hasangir Khan | Contact: 9262515150';
+function ld(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){try{localStorage.setItem('af_corrupt_'+k+'_'+Date.now(),localStorage.getItem(k))}catch(_){}try{const b=localStorage.getItem('af_base_'+k);if(b)return JSON.parse(b)}catch(_){}return d}}
+// ---------- Firebase (Auth + Realtime Database + localStorage) ----------
+const firebaseConfig={apiKey:"AIzaSyB2cXkBEwP1hhq-DoS_hgReWiuqsTUEoDk",authDomain:"aafiya-coaching-centre.firebaseapp.com",projectId:"aafiya-coaching-centre",storageBucket:"aafiya-coaching-centre.firebasestorage.app",messagingSenderId:"1048864253771",appId:"1:1048864253771:web:e902f43a780f1d27de2ace",measurementId:"G-K7X78C7827",
+ databaseURL:"https://aafiya-coaching-centre-default-rtdb.firebaseio.com"}; // Change this if the Realtime Database URL is different
+// Firebase REST (SDK ke bina) - Auth + Realtime Database
+function mkFB(name){
+ const KEY=firebaseConfig.apiKey,DBU=firebaseConfig.databaseURL,SK='fbsess_'+(name||'main');
+ let sess=null;try{sess=JSON.parse(sessionStorage.getItem(SK)||'null')}catch(e){}
+ const save=()=>{try{sess?sessionStorage.setItem(SK,JSON.stringify(sess)):sessionStorage.removeItem(SK)}catch(e){}};
+ const jf=async(url,opt,ms)=>{const ac=new AbortController(),t=setTimeout(()=>ac.abort(),ms||15000);
+  try{const r=await fetch(url,{...opt,signal:ac.signal});const tx=await r.text();let j=null;try{j=JSON.parse(tx)}catch(e){}
+   if(!r.ok){const m=j&&j.error&&(j.error.message||j.error);const er=new Error(m||('HTTP '+r.status));er.code=String(m||'http-'+r.status);throw er}return j}
+  catch(e){if(e.name==='AbortError'){const er=new Error('Timeout: no response from the server');er.code='timeout';throw er}throw e}finally{clearTimeout(t)}};
+ const user=()=>sess?{uid:sess.uid,email:sess.email}:null;
+ const tok=async()=>{if(!sess)throw Object.assign(new Error('Not logged in'),{code:'no-login'});
+  if(Date.now()>sess.exp-60000){const j=await jf('https://securetoken.googleapis.com/v1/token?key='+KEY,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'grant_type=refresh_token&refresh_token='+encodeURIComponent(sess.rt)});
+   sess.idt=j.id_token;sess.rt=j.refresh_token;sess.exp=Date.now()+(+j.expires_in)*1000;save()}return sess.idt};
+ const au={
+  signInWithEmailAndPassword:async(e,p)=>{const j=await jf('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+KEY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,password:p,returnSecureToken:true})});
+   sess={idt:j.idToken,rt:j.refreshToken,exp:Date.now()+(+j.expiresIn)*1000,uid:j.localId,email:(j.email||e).toLowerCase()};save();return{user:user()}},
+  signOut:async()=>{sess=null;save()},
+  sendPasswordResetEmail:e=>jf('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key='+KEY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({requestType:'PASSWORD_RESET',email:e})}),
+  onAuthStateChanged:cb=>{if(!sess){setTimeout(()=>cb(null),0);return}tok().then(()=>cb(user())).catch(()=>{sess=null;save();cb(null)})}};
+ const url=(p,t)=>DBU+'/'+p+'.json?auth='+encodeURIComponent(t);
+ const db={ref:path=>({
+  tx:async fn=>{for(let i=0;i<6;i++){const t=await tok(),u=url(path,t),ac=new AbortController(),tm=setTimeout(()=>ac.abort(),15000);
+    try{const r=await fetch(u,{headers:{'X-Firebase-ETag':'true'},signal:ac.signal});if(!r.ok)throw Object.assign(new Error('HTTP '+r.status),{code:'http-'+r.status});
+     const et=r.headers.get('ETag'),cur=await r.json(),nv=fn(cur);if(nv===undefined)return{committed:false,value:cur};
+     const w=await fetch(u,{method:'PUT',headers:et?{'If-Match':et}:{},body:JSON.stringify(nv),signal:ac.signal});
+     if(w.status===412)continue;if(!w.ok)throw Object.assign(new Error('HTTP '+w.status),{code:'http-'+w.status});return{committed:true,value:nv}}
+    catch(e){if(e.name==='AbortError')throw Object.assign(new Error('Timeout'),{code:'timeout'});throw e}finally{clearTimeout(tm)}}
+    throw Object.assign(new Error('Too many edit conflicts'),{code:'conflict'})},
+  set:async v=>{const t=await tok();await jf(url(path,t),{method:'PUT',body:JSON.stringify(v)})},
+  once:async()=>{const t=await tok();const j=await jf(url(path,t));return{val:()=>j}},
+  on:(ev,cb)=>{let es=null,cur=null,tm=null;
+   const ap=(p,d,mg)=>{if(p==='/'){cur=(mg&&cur&&typeof cur==='object'&&d&&typeof d==='object')?{...cur,...d}:d;return}
+    const ks=p.split('/').filter(Boolean);if(cur==null||typeof cur!=='object')cur={};let o=cur;
+    for(let i=0;i<ks.length-1;i++){if(o[ks[i]]==null||typeof o[ks[i]]!=='object')o[ks[i]]={};o=o[ks[i]]}
+    const k=ks[ks.length-1];if(d===null)delete o[k];else if(mg&&typeof d==='object'&&o[k]&&typeof o[k]==='object')Object.assign(o[k],d);else o[k]=d};
+   const go=async()=>{clearTimeout(tm);try{if(es)es.close();const t=await tok();es=new EventSource(url(path,t));
+    es.addEventListener('put',m=>{const x=JSON.parse(m.data);ap(x.path,x.data,false);cb({val:()=>cur})});
+    es.addEventListener('patch',m=>{const x=JSON.parse(m.data);ap(x.path,x.data,true);cb({val:()=>cur})});
+    es.addEventListener('auth_revoked',()=>{tm=setTimeout(go,1000)});
+    es.onerror=()=>{if(es.readyState===2)tm=setTimeout(go,5000)}}catch(e){tm=setTimeout(go,8000)}};
+   go();setInterval(go,50*60000)}})};
+ return{au,db}}
+const _m=mkFB(),fauth=_m.au,fdb=_m.db;
+const _d=mkFB('dev'),devAuth=_d.au,devDb=_d.db;
+const SYNC=['af_students','af_pays','af_fees','af_lic','af_staff','af_trash','af_dismissed'];
+let DBON=false,OWNER=null,USERS={};
+let S=ld('af_students',[]),P=ld('af_pays',[]),F=ld('af_fees',DEF),LIC=ld('af_lic',{status:'active',expiry:'',amount:21999}),ST=ld('af_staff',[]),TRS=ld('af_trash',[]),DIS=ld('af_dismissed',[]),CUR=null;
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const ym=d=>d.slice(0,7),fm=n=>'₹'+Number(n||0).toLocaleString('en-IN');
+const mname=m=>m==='ADM'?'Admission Fee':new Date(m+'-01T00:00:00').toLocaleString('en-GB',{month:'short',year:'numeric'});
+const addM=(m,n)=>{let[y,mo]=m.split('-').map(Number);mo+=n;y+=Math.floor((mo-1)/12);mo=((mo-1)%12)+1;return y+'-'+String(mo).padStart(2,'0')};
+const fdate=d=>d?new Date(d+'T00:00:00').toLocaleDateString('en-GB'):'—';
+const num=m=>'91'+String(m).replace(/\D/g,'').replace(/^0/,'').replace(/^91(?=\d{10}$)/,'');
+const cur=()=>ym(today());
+// ======================================================================
+//  DATA PROTECTION MODULE  (ported/adapted from the INTEGRAL School app)
+//  1 Merge-safe sync (no blind overwrite)   2 Offline "pending" queue + auto retry
+//  3 Safety snapshots (IndexedDB)           4 Mass-delete / wipe guard
+//  5 Suspicious-remote self-heal            6 Daily auto file backup + manual backup
+//  7 Owner-only restore (snapshot first)    8 Backup & Restore Center tab
+// ======================================================================
+const DK=['af_students','af_pays','af_fees','af_staff','af_trash'];
+const LBL={af_students:'Students',af_pays:'Payments',af_trash:'Trash',af_staff:'Staff'};
+const UPI_ID='sarjil52.sab-1@okicici';
+const UPI_URL='upi://pay?pa=sarjil52.sab-1@okicici&pn=Md%20Seraj%20Ahmad&cu=INR&tn=School%20Fee%20System%20Subscription%20Renewal';
+let FORCE=false,LASTPRE=0,badgeT=null;const FL={},FP={},RESC={};
+function _cnt(v){return Array.isArray(v)?v.length:(v&&typeof v==='object'?Object.keys(v).length:0)}
+function _pc(s){try{return _cnt(JSON.parse(s))}catch(e){return 0}}
+function dirtyGet(){try{const d=JSON.parse(localStorage.getItem('af_dirty')||'[]');return Array.isArray(d)?d:[]}catch(e){return[]}}
+function markDirty(k){const d=dirtyGet();if(!d.includes(k)){d.push(k);try{localStorage.setItem('af_dirty',JSON.stringify(d))}catch(e){}}badge()}
+function clearDirty(k){try{localStorage.setItem('af_dirty',JSON.stringify(dirtyGet().filter(x=>x!==k)))}catch(e){}}
+function logGet(){try{return JSON.parse(localStorage.getItem('af_synclog')||'[]')}catch(e){return[]}}
+function logSync(m){try{const l=logGet();l.push(new Date().toLocaleString('en-GB')+' — '+m);localStorage.setItem('af_synclog',JSON.stringify(l.slice(-50)))}catch(e){}}
+function lsSet(k,j){try{localStorage.setItem(k,j);return true}catch(e){
+  try{Object.keys(localStorage).filter(x=>x.startsWith('af_corrupt_')).forEach(x=>localStorage.removeItem(x));localStorage.removeItem('af_snaps_ls');localStorage.setItem(k,j);return true}
+  catch(e2){alert('❌ Device storage is FULL — this change could not be saved on this device. Please free up browser/phone storage, then try again.');return false}}}
+
+// ---------- safety snapshots (IndexedDB, fallback localStorage) ----------
+function idb(){return new Promise((res,rej)=>{try{const r=indexedDB.open('af_safe_v1',1);r.onupgradeneeded=()=>r.result.createObjectStore('snaps',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}})}
+const idbReq=r=>new Promise((res,rej)=>{r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+async function snapPut(s){
+  try{const d=await idb();const st=()=>d.transaction('snaps','readwrite').objectStore('snaps');
+    await idbReq(st().put(s));
+    const all=await idbReq(d.transaction('snaps').objectStore('snaps').getAll());
+    const keep={auto:12,pre:30};
+    ['auto','pre'].forEach(kind=>all.filter(x=>x.kind===kind).sort((a,b)=>a.at<b.at?1:-1).slice(keep[kind]).forEach(x=>st().delete(x.id)));
+    d.close();
+  }catch(e){
+    try{let h=JSON.parse(localStorage.getItem('af_snaps_ls')||'[]');h.push(s);localStorage.setItem('af_snaps_ls',JSON.stringify(h.slice(-3)))}catch(_){try{localStorage.removeItem('af_snaps_ls')}catch(__){}}}}
+async function snapList(){let a=[];
+  try{const d=await idb();a=await idbReq(d.transaction('snaps').objectStore('snaps').getAll());d.close()}catch(e){}
+  try{a=a.concat(JSON.parse(localStorage.getItem('af_snaps_ls')||'[]'))}catch(e){}
+  return a.sort((x,y)=>x.at<y.at?1:-1)}
+async function snapGet(id){return(await snapList()).find(s=>s.id===id)}
+function snapNow(reason,kind){
+  const data={};DK.forEach(k=>{const v=localStorage.getItem(k);if(v!=null)data[k]=v});
+  const cS=_pc(data.af_students),cP=_pc(data.af_pays);
+  if(!cS&&!cP)return Promise.resolve();
+  return snapPut({id:'s'+Date.now()+Math.random().toString(36).slice(2,5),at:new Date().toISOString(),reason,kind:kind||'pre',cnt:{S:cS,P:cP},data});
+}
+function snapPre(reason){LASTPRE=Date.now();return snapNow(reason,'pre')}
+function autoSnapMaybe(){const n=Date.now();if(n-(+localStorage.getItem('af_last_auto_snap')||0)>10*60000){try{localStorage.setItem('af_last_auto_snap',n)}catch(e){}snapNow('Auto safety copy','auto')}}
+
+// ---------- guarded save ----------
+function sv(k,v){const j=JSON.stringify(v);
+  if(!DK.includes(k)){try{localStorage.setItem(k,j)}catch(e){}if(DBON&&SYNC.includes(k))fdb.ref('af/'+k).set(j).catch(e=>console.warn('DB save',e));return true}
+  const old=localStorage.getItem(k),o=_pc(old),n=_pc(j);
+  // WIPE / MASS-DELETE GUARD
+  if(!FORCE&&(k==='af_students'||k==='af_pays')&&((o>=3&&n===0)||(o>=8&&n<o*.5))){
+    if(!confirm('⚠️ DATA SAFETY WARNING\n\n'+LBL[k]+' are dropping from '+o+' to '+n+'.\nThis would remove a very large part of your data.\n\nPress OK only if you did this on purpose. (A safety copy is saved first.)')){
+      if(old!=null){try{applyKey(k,JSON.parse(old))}catch(e){}}refreshUI();logSync('Blocked risky save of '+k+' ('+o+' → '+n+')');return false}}
+  if(old!=null&&n<o&&k!=='af_staff'&&k!=='af_fees'){if(Date.now()-LASTPRE>4000)snapPre('Before reducing '+LBL[k]+' ('+o+' → '+n+')')}else autoSnapMaybe();
+  if(!lsSet(k,j))return false;
+  markDirty(k);flushKey(k);return true}
+
+// ---------- 3-way merge so two devices never overwrite each other ----------
+function _kid(k,x){return !x?null:(k==='af_pays'?x.sid+'#'+x.rno:x.id)}
+function mergeStr(k,localStr,remoteStr,baseStr){
+  if(remoteStr==null||remoteStr===localStr)return localStr;
+  let L,R,B=null;try{L=JSON.parse(localStr);R=JSON.parse(remoteStr)}catch(e){return localStr}
+  try{B=baseStr?JSON.parse(baseStr):null}catch(e){B=null}
+  const s=x=>JSON.stringify(x);
+  if(!Array.isArray(L)||!Array.isArray(R)){ // object (fees): per-key, local wins only where it changed
+    if(L&&R&&typeof L==='object'&&typeof R==='object'){const m={...R};Object.keys(L).forEach(c=>{if(!B||s(L[c])!==s(B[c]))m[c]=L[c]});return s(m)}
+    return localStr}
+  const mp=a=>{const m=new Map();(a||[]).forEach(x=>{const i=_kid(k,x);if(i!=null)m.set(i,x)});return m};
+  const lm=mp(L),rm=mp(R),bm=Array.isArray(B)?mp(B):null,out=new Map();
+  rm.forEach((v,i)=>out.set(i,v));
+  lm.forEach((v,i)=>{const b=bm&&bm.get(i);if(!b||s(v)!==s(b))out.set(i,v)});          // new / changed here -> keep
+  if(bm)bm.forEach((v,i)=>{if(!lm.has(i)&&rm.has(i)&&s(rm.get(i))===s(v))out.delete(i)}); // deleted here, untouched there -> delete
+  return s([...out.values()])}
+async function pushKey(k){
+  const start=localStorage.getItem(k);if(start==null)return;let merged=start;
+  const r=await fdb.ref('af/'+k).tx(cur=>{if(cur!=null&&sus(k,start,cur)){rescue(k,start,cur);merged=start;return start}merged=mergeStr(k,start,cur,localStorage.getItem('af_base_'+k));return merged===cur?undefined:merged});
+  const fin=r.committed?merged:r.value;if(fin==null)return;
+  try{localStorage.setItem('af_base_'+k,fin)}catch(e){}
+  if(fin!==start&&localStorage.getItem(k)===start){
+    try{localStorage.setItem(k,fin);applyKey(k,JSON.parse(fin));logSync('Merged changes from another device into '+k);refreshUI()}catch(e){}}}
+function flushKey(k){
+  if(!DBON||!DK.includes(k))return Promise.resolve();
+  if(FL[k]){FL[k]=2;return FP[k]}
+  FL[k]=1;
+  FP[k]=(async()=>{try{while(true){FL[k]=1;await pushKey(k);if(FL[k]===1)break}clearDirty(k);autoFileBackup()}
+    catch(e){logSync('Sync failed ('+k+'): '+(e.code||e.message)+' — will retry automatically')}
+    finally{FL[k]=0;badge()}})();
+  return FP[k]}
+function flushAll(ms){return Promise.race([Promise.all(dirtyGet().map(flushKey)),new Promise(r=>setTimeout(r,ms||20000))])}
+setInterval(()=>{if(DBON&&dirtyGet().length)flushAll()},20000);
+window.addEventListener('online',()=>{if(DBON)flushAll()});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&DBON&&dirtyGet().length)flushAll()});
+window.addEventListener('beforeunload',e=>{if(dirtyGet().length){e.preventDefault();e.returnValue=''}});
+
+// ---------- remote safety (wiped online copy => heal from this device) ----------
+function sus(k,loc,rs){if(k!=='af_students'&&k!=='af_pays')return false;const lc=_pc(loc),rc=_pc(rs);return(lc>=3&&rc===0)||(lc>=8&&rc<lc*.5)}
+function rescue(k,loc,rs){
+  snapPut({id:'s'+Date.now()+'r',at:new Date().toISOString(),reason:'Suspicious online copy of '+LBL[k]+' (kept for safety)',kind:'pre',cnt:{},data:{[k]:rs}});
+  logSync('Online '+k+' looked wiped ('+_pc(rs)+' vs '+_pc(loc)+') — healed from this device');
+  fdb.ref('af/'+k).set(loc).then(()=>{try{localStorage.setItem('af_base_'+k,loc)}catch(e){}}).catch(()=>markDirty(k));
+  if(!RESC[k]){RESC[k]=1;alert('🛡️ Data protection\n\nThe online database showed far less '+LBL[k].toLowerCase()+' ('+_pc(rs)+') than this device ('+_pc(loc)+'). The online data has been restored from this device, and the suspicious copy was saved under Backup → Safety Snapshots.')}}
+function refreshUI(){if(!CUR)return;CL.forEach(c=>{const e=$('f-'+c);if(e)e.value=F[c]||0});drawNav();if(ACT==='home')renderAll();else if(ACT==='cls')renderCls();else if(ACT==='ctl')renderCtl();else if(ACT==='trash')renderTrash();else if(ACT==='bk')renderBk()}
+function badge(){const el=$('syncBadge');if(!el||!CUR)return;const n=dirtyGet().length;clearTimeout(badgeT);
+  if(n){el.className='sb bad';el.textContent='📡 '+n+' change'+(n>1?'s':'')+' pending sync';el.style.display='block'}
+  else{el.className='sb ok';el.textContent='✅ All synced';el.style.display='block';badgeT=setTimeout(()=>el.style.display='none',2500)}
+  if(ACT==='bk')renderBk()}
+
+// ---------- backups ----------
+function buildBackup(){return{app:'AAFIYA',ver:2,at:new Date().toISOString(),counts:{students:S.length,payments:P.length},S,P,F,ST,TRS}}
+function dlJson(o,name){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+function autoFileBackup(){try{
+  if(!CUR||localStorage.getItem('af_autofile_off')==='1'||!S.length)return;
+  const t=today();if(localStorage.getItem('af_autofile_date')===t)return;
+  dlJson(buildBackup(),'aafiya-auto-backup-'+t+'.json');localStorage.setItem('af_autofile_date',t)}catch(e){}}
+function setAutoFile(on){try{on?localStorage.removeItem('af_autofile_off'):localStorage.setItem('af_autofile_off','1')}catch(e){}}
+function backup(){const n=new Date();dlJson(buildBackup(),'aafiya-backup-'+today()+'-'+String(n.getHours()).padStart(2,'0')+String(n.getMinutes()).padStart(2,'0')+'.json');
+  try{localStorage.setItem('af_manual_bk',n.toISOString())}catch(e){}alert('✅ Backup downloaded — '+S.length+' students, '+P.length+' payments.');if(ACT==='bk')renderBk()}
+async function applyData(d,label){
+  await snapPre('Before restore: '+label);
+  FORCE=true;
+  try{if(Array.isArray(d.S)){S=d.S;sv('af_students',S)}if(Array.isArray(d.P)){P=d.P;sv('af_pays',P)}
+    if(d.F&&typeof d.F==='object'){F=d.F;sv('af_fees',F)}if(Array.isArray(d.ST)){ST=d.ST;sv('af_staff',ST)}if(Array.isArray(d.TRS)){TRS=d.TRS;sv('af_trash',TRS)}}
+  finally{FORCE=false}
+  logSync('Restored data from '+label);
+  await flushAll(15000);
+  if(dirtyGet().length)alert('⚠️ Restore saved on this device, but online sync is still pending (internet?). It will sync automatically once the connection works — keep this device\'s browser data intact until then.');
+  location.reload()}
+function restore(e){
+  const f=e.target.files[0];if(!f)return;
+  if(!isOwner()){alert('🔒 Only the Owner can restore data.');e.target.value='';return}
+  const r=new FileReader();
+  r.onload=async()=>{try{
+    const d=JSON.parse(r.result);
+    if(!d||!Array.isArray(d.S)||!Array.isArray(d.P))throw new Error('format');
+    if(!d.S.length&&S.length){alert('❌ This file contains no students — restore cancelled to protect your current data.');return}
+    if(!confirm('⚠️ Restore from file\n\nFile: '+d.S.length+' students, '+d.P.length+' payments\nCurrent: '+S.length+' students, '+P.length+' payments\n\nA safety snapshot of the current data is saved first. Continue?'))return;
+    await applyData(d,'file '+f.name)
+  }catch(x){alert('❌ Invalid backup file')}};
+  r.readAsText(f);e.target.value=''}
+async function restoreSnap(id){
+  if(!isOwner())return alert('🔒 Only the Owner can restore data.');
+  const s=await snapGet(id);if(!s)return alert('Snapshot not found.');
+  const g=k=>{try{return s.data[k]!=null?JSON.parse(s.data[k]):undefined}catch(e){return undefined}};
+  const d={S:g('af_students'),P:g('af_pays'),F:g('af_fees'),ST:g('af_staff'),TRS:g('af_trash')};
+  if(!confirm('⚠️ Restore this safety copy?\n\n'+s.reason+'\n'+new Date(s.at).toLocaleString('en-GB')+'\n\nCurrent data is saved as a new snapshot first, so this can be undone. Continue?'))return;
+  await applyData(d,'snapshot "'+s.reason+'"')}
+async function dlSnap(id){const s=await snapGet(id);if(!s)return;const g=k=>{try{return s.data[k]!=null?JSON.parse(s.data[k]):undefined}catch(e){return undefined}};
+  dlJson({app:'AAFIYA',ver:2,at:s.at,S:g('af_students'),P:g('af_pays'),F:g('af_fees'),ST:g('af_staff'),TRS:g('af_trash')},'aafiya-snapshot-'+s.at.slice(0,19).replace(/[:T]/g,'-')+'.json')}
+async function renderBk(){
+  if(!$('bkStats'))return;
+  const own=isOwner(),dty=dirtyGet(),sn=await snapList(),lm=localStorage.getItem('af_manual_bk'),la=localStorage.getItem('af_autofile_date');
+  const fmt=t=>t?new Date(t).toLocaleString('en-GB'):'—';
+  $('bkStats').innerHTML=[['',S.length,'Students loaded',''],['s2',P.length,'Payments saved',''],['s3',dty.length?dty.length+' pending':'✅ Synced','Online sync status','font-size:18px'],['s4',lm?fmt(lm):'Never','Last manual backup','font-size:15px'],['s5',la||'Not yet','Last auto file backup','font-size:15px']]
+    .map(x=>`<div class="card stat ${x[0]}"><div style="${x[3]}">${esc(x[1])}</div><small>${x[2]}</small></div>`).join('');
+  $('bkAuto').checked=localStorage.getItem('af_autofile_off')!=='1';
+  $('bkRestoreCard').innerHTML=own?`<h3 style="margin:0 0 6px">📂 Restore From a Backup File</h3><div class="hint">Choose a previously downloaded backup (.json). Your current data is saved as a safety snapshot first, so a restore can always be undone.</div><label class="btn r" style="display:inline-block;margin-top:10px">📂 Choose Backup File<input type="file" accept=".json" hidden onchange="restore(event)"></label>`
+    :`<div style="text-align:center"><div style="font-size:30px">🔒</div><b>Restore is Owner-only</b><div class="hint">Restoring can overwrite all current data, so only the Owner can do it. You can still download backups above.</div></div>`;
+  $('bkSnaps').innerHTML=sn.length?sn.map(s=>`<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 10px;border:1px solid var(--bd);border-radius:8px;margin-top:8px;flex-wrap:wrap"><div><b style="font-size:14px">${s.kind==='pre'?'🛑':'🕒'} ${esc(s.reason)}</b><div class="hint">${fmt(s.at)}${s.cnt&&s.cnt.S!=null?' — '+s.cnt.S+' students, '+s.cnt.P+' payments':''}</div></div><div style="display:flex;gap:6px"><button class="btn b" style="padding:6px 10px;font-size:13px" onclick="dlSnap('${s.id}')">⬇️</button>${own?`<button class="btn r" style="padding:6px 10px;font-size:13px" onclick="restoreSnap('${s.id}')">↩️ Restore</button>`:''}</div></div>`).join('')
+    :'<div class="hint">No snapshot yet — one is created automatically before every delete and every 10 minutes of activity.</div>';
+  $('bkLog').innerHTML=logGet().slice(-12).reverse().map(esc).join('<br>')||'No entries yet.'}
+function protectBoot(){if(!CUR)return;
+  if(Date.now()-(+localStorage.getItem('af_last_auto_snap')||0)>30*60000){try{localStorage.setItem('af_last_auto_snap',Date.now())}catch(e){}snapNow('Session start','auto')}
+  autoFileBackup()}
+
+// ---------- Google Pay / UPI renewal card (shared by lock screen + expiry reminder) ----------
+function gpayLogo(id){return `<svg width="46" height="46" viewBox="0 0 100 100" style="flex-shrink:0"><defs><clipPath id="${id}"><circle cx="50" cy="50" r="50"/></clipPath></defs><g clip-path="url(#${id})"><rect x="0" y="0" width="100" height="100" fill="#fff"/><polygon points="42,0 100,0 100,100 58,100" fill="#1A73E8"/><g transform="translate(8,30) scale(0.6)"><path fill="#4285F4" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.9 2.5 30.4 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.8 6.1C12.3 13.1 17.6 9.5 24 9.5z"/><path fill="#34A853" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.5 3-2.2 5.5-4.7 7.2l7.4 5.8c4.3-4 6.8-9.9 6.8-17.5z"/><path fill="#FBBC05" d="M10.4 19.3a14.5 14.5 0 0 0 0 9.4l-7.8 6.1a24 24 0 0 1 0-21.6l7.8 6.1z"/><path fill="#EA4335" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.8c-2.1 1.4-4.8 2.2-8.5 2.2-6.4 0-11.7-3.6-13.6-9.9l-7.8 6.1C6.5 42.6 14.6 48 24 48z"/></g><text x="63" y="61" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#fff" text-anchor="middle">Pay</text></g></svg>`}
+function payUi(){const a=fm(LIC.amount||21999);
+  document.querySelectorAll('.gpay-slot').forEach((e,i)=>{if(!e.firstChild)e.innerHTML=gpayLogo('gpc'+i)});
+  document.querySelectorAll('.payAmt').forEach(e=>e.textContent=a);
+  document.querySelectorAll('.payLink').forEach(e=>e.href=UPI_URL)}
+function copyUpi(){const done=()=>alert('✅ UPI ID copied: '+UPI_ID);
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(UPI_ID).then(done).catch(()=>prompt('Copy this UPI ID:',UPI_ID));else prompt('Copy this UPI ID:',UPI_ID)}
+function expiryNudge(){
+  if(!LIC.expiry||sessionStorage.getItem('af_exp_shown')==='1')return;
+  const diff=Math.round((new Date(LIC.expiry+'T00:00:00')-new Date(today()+'T00:00:00'))/864e5);
+  if(diff!==1)return;
+  const t=$('expiryReminderToast');if(!t)return;
+  $('expiryReminderDate').textContent=new Date(LIC.expiry+'T00:00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'});
+  try{sessionStorage.setItem('af_exp_shown','1')}catch(e){}
+  t.style.display='flex';requestAnimationFrame(()=>t.classList.add('show'))}
+function closeExpiryReminder(){const t=$('expiryReminderToast');if(!t)return;t.classList.remove('show');setTimeout(()=>t.style.display='none',350)}
+
+
+// ======== DIRECT PDF DOWNLOAD (no print dialog) ========
+const PDFCSS=`.pdfroot{font-family:'Noto Serif',Georgia,'Times New Roman',serif;color:#111;font-size:11pt;background:#fff}.pdfroot .pg{width:794px;box-sizing:border-box;margin:0;padding:8mm 8mm;background:#fff}.pdfroot .hbox{border:3px solid #111;text-align:center;padding:12px 10px}.pdfroot .hn{font-size:22pt;font-weight:bold;letter-spacing:5px}.pdfroot .hs{font-size:10.5pt;margin:3px 0}.pdfroot .hbox hr{border:0;border-top:1px solid #777;margin:8px 16px}.pdfroot .gen{text-align:right;font-size:9pt;font-style:italic;color:#666;margin:10px 2px}.pdfroot .ttl{text-align:center;font-weight:bold;font-size:13pt;letter-spacing:2px;margin:8px 0}.pdfroot table{width:100%;border-collapse:collapse}.pdfroot .info{border:2px solid #333;margin-bottom:12px}.pdfroot .info td{border:2px solid #fff;background:#fff;padding:7px 9px;font-size:10.5pt;outline:1px solid #ccc}.pdfroot .info td.l{background:#e8e8e8;font-weight:bold;width:20%}.pdfroot .mt th{background:#222;color:#fff;padding:9px 6px;font-size:10pt;text-align:left;border:1px solid #444}.pdfroot .mt td{padding:8px 7px;border:1.5px solid #ccc;font-size:10pt}.pdfroot .mt tr:nth-child(even) td{background:#fafafa}.pdfroot .mt tr.p td{background:#e6e6e6;font-weight:bold}.pdfroot .c{text-align:center}.pdfroot .r{text-align:right;background:none}.pdfroot .mt th.c{text-align:center}.pdfroot .mt th.r{text-align:right}.pdfroot .sum{border:2px solid #111;padding:10px 16px;margin-top:14px}.pdfroot .st{font-weight:bold;letter-spacing:1px;border-bottom:2px solid #111;padding-bottom:5px;margin-bottom:4px}.pdfroot .sr{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dotted #aaa;font-size:11pt}.pdfroot .tot{display:flex;justify-content:space-between;border-top:2px solid #111;margin-top:6px;padding-top:8px;font-size:13pt;font-weight:bold}.pdfroot .note{border:1px dashed #888;text-align:center;padding:7px;font-size:10pt;margin-top:10px}.pdfroot .fdev{text-align:center;font-size:7.5pt;color:#666;margin-top:8px;border-top:1px dotted #bbb;padding-top:5px}`;
+let PL=null,PDFBUSY=false;
+function loadScript(u){return new Promise((res,rej)=>{const e=document.createElement('script');e.src=u;e.onload=res;e.onerror=()=>rej(new Error('load failed: '+u));document.head.appendChild(e)})}
+function pdfLibs(){if(window.jspdf&&window.html2canvas)return Promise.resolve();
+  return PL||(PL=Promise.all([loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'),loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js')]).catch(e=>{PL=null;throw e}))}
+const fname=t=>String(t||'').replace(/[\\/:*?"<>|]/g,'').replace(/\s+/g,' ').trim();
+const uq=()=>{const d=new Date(),z=n=>String(n).padStart(2,'0');return z(d.getDate())+z(d.getHours())+z(d.getMinutes())+z(d.getSeconds())};
+async function htmlToPdf(pagesHtml,file){
+  if(PDFBUSY)return;PDFBUSY=true;
+  const wrap=document.createElement('div');wrap.id='pdfwrap';wrap.style.cssText='position:fixed;left:-10000px;top:0;width:794px;background:#fff;z-index:-1';
+  try{
+    await pdfLibs();
+    wrap.innerHTML='<style>'+PDFCSS+'</style><div class="pdfroot">'+pagesHtml+'</div>';document.body.appendChild(wrap);
+    try{await document.fonts.ready}catch(e){}
+    const {jsPDF}=window.jspdf,pdf=new jsPDF({unit:'mm',format:'a4',orientation:'p'}),els=[...wrap.querySelectorAll('.pg')];
+    for(let i=0;i<els.length;i++){
+      const cv=await html2canvas(els[i],{scale:2,backgroundColor:'#ffffff',useCORS:true,scrollX:0,scrollY:0,windowWidth:794,onclone:d=>{const w=d.getElementById('pdfwrap');if(w){w.style.left='0';w.style.top='0';w.style.zIndex='0'}}});
+      let W=210,H=cv.height*210/cv.width;if(H>297){W=210*297/H;H=297}
+      if(i)pdf.addPage();pdf.addImage(cv.toDataURL('image/jpeg',.92),'JPEG',(210-W)/2,0,W,H)}
+    pdf.save(file)
+  }catch(e){console.error(e);alert('❌ PDF could not be created: '+(e.message||e)+'\n\nPlease check your internet connection (the PDF tool loads once online) and try again.')}
+  finally{wrap.remove();PDFBUSY=false}}
+function slipPage(s,p){const det=p.det||p.months.map(m=>({m,amt:s.fee,bal:0})),due=p.due!=null?p.due:stats(s).due;
+  const rows=det.map((d,i)=>TR(i+1,[mf(d.m),d.bal>0?'<b>PARTIAL</b>':'√ PAID',fm(kfee(s,d.m)),'<b>'+fm(d.amt)+'</b>',d.bal>0?fm(d.bal):'√ Clear'],'p')).join('');
+  const body=`<div class="ttl">FEE PAYMENT RECEIPT</div>`+info(s,`<tr><td class="l">Receipt No.</td><td><b>${pad(p.rno)}</b></td><td class="l">Payment Date</td><td>${p.date}</td></tr>`)+`<table class="mt"><tr><th class="c">S.No</th><th>Month</th><th class="c">Status</th><th class="r">Amount</th><th class="r">Credit</th><th class="r">Balance</th></tr>${rows}</table>`+sumBox('PAYMENT SUMMARY',covRows(det).concat(p.disc?[['Total Amount:',fm(p.amt)],['Discount:','- '+fm(p.disc)]]:[]).concat([['Balance Due (after this payment):',fm(due)]]),p.disc?'TOTAL RECEIVED AMOUNT:':'TOTAL AMOUNT PAID:',fm(rcv(p)));
+  return page(body,'🙏 धन्यवाद &nbsp;|&nbsp; Thank you for your payment')}
+// Download the receipt of the latest payment that covers month m
+function dlRcpt(m){const s=S.find(x=>x.id===PN);if(!s)return;
+  const L=spays(s).filter(p=>dets(p).some(d=>d.m===m&&d.amt>0));if(!L.length)return alert('No receipt found for this month.');
+  const p=L[L.length-1];htmlToPdf(slipPage(s,p),fname(s.name)+'('+mname(m)+')'+uq()+'.pdf')}
+function dlFull(id){const s=S.find(x=>x.id===(id||PN));if(!s)return;
+  htmlToPdf(ledgerHtml(s),fname(s.name)+'(Full Report)'+uq()+'.pdf')}
+
+// Full report -> direct download, same look/layout as the action-section "Full PDF Report" (print layout: A4, 8mm page margin)
+const PRCSS=`body{font-family:'Noto Serif',Georgia,'Times New Roman',serif;margin:0;color:#111;font-size:11pt;background:#fff}.pg{max-width:200mm;margin:0 auto;padding:8mm 6mm;page-break-after:always}.pg:last-child{page-break-after:auto}.hbox{border:3px solid #111;text-align:center;padding:12px 10px}.hn{font-size:22pt;font-weight:bold;letter-spacing:5px}.hs{font-size:10.5pt;margin:3px 0}.hbox hr{border:0;border-top:1px solid #777;margin:8px 16px}.gen{text-align:right;font-size:9pt;font-style:italic;color:#666;margin:10px 2px}.ttl{text-align:center;font-weight:bold;font-size:13pt;letter-spacing:2px;margin:8px 0}table{width:100%;border-collapse:collapse}.info{border:2px solid #333;margin-bottom:12px}.info td{border:2px solid #fff;background:#fff;padding:7px 9px;font-size:10.5pt;outline:1px solid #ccc}.info td.l{background:#e8e8e8;font-weight:bold;width:20%}.mt th{background:#222;color:#fff;padding:9px 6px;font-size:10pt;text-align:left;border:1px solid #444}.mt td{padding:8px 7px;border:1.5px solid #ccc;font-size:10pt}.mt tr:nth-child(even) td{background:#fafafa}.mt tr.p td{background:#e6e6e6;font-weight:bold}.c{text-align:center}.r{text-align:right}.mt th.c{text-align:center}.mt th.r{text-align:right}.sum{border:2px solid #111;padding:10px 16px;margin-top:14px}.st{font-weight:bold;letter-spacing:1px;border-bottom:2px solid #111;padding-bottom:5px;margin-bottom:4px}.sr{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dotted #aaa;font-size:11pt}.tot{display:flex;justify-content:space-between;border-top:2px solid #111;margin-top:6px;padding-top:8px;font-size:13pt;font-weight:bold}.note{border:1px dashed #888;text-align:center;padding:7px;font-size:10pt;margin-top:10px}.fdev{text-align:center;font-size:7.5pt;color:#666;margin-top:8px;border-top:1px dotted #bbb;padding-top:5px}`;
+async function dlLedger(id){const s=S.find(x=>x.id===(id||PN));if(!s)return;if(PDFBUSY)return;PDFBUSY=true;
+  const fr=document.createElement('iframe');fr.style.cssText='position:fixed;left:-10000px;top:0;width:733px;height:1400px;border:0;background:#fff';
+  try{
+    await pdfLibs();
+    await new Promise(r=>{fr.onload=r;fr.srcdoc='<!DOCTYPE html><html><head><meta charset="utf-8"><style>'+PRCSS+'</style></head><body>'+ledgerHtml(s)+'</body></html>';document.body.appendChild(fr)});
+    const d=fr.contentDocument,pg=d.querySelector('.pg');try{await d.fonts.ready}catch(e){}
+    fr.style.height=(d.body.scrollHeight+60)+'px';
+    const W=pg.offsetWidth,H=pg.offsetHeight,top=pg.getBoundingClientRect().top;
+    const cv=await html2canvas(pg,{scale:2,backgroundColor:'#ffffff',useCORS:true,scrollX:0,scrollY:0,windowWidth:W});
+    const k=cv.width/W,pageH=281/194*W;
+    const cuts=[...pg.querySelectorAll('tr,.hbox,.gen,.info,.sum,.note,.fdev')].map(e=>e.getBoundingClientRect().bottom-top).sort((a,b)=>a-b);
+    const {jsPDF}=window.jspdf,pdf=new jsPDF({unit:'mm',format:'a4',orientation:'p'});let y=0,first=true;
+    while(y<H-1){let end=Math.min(y+pageH,H);if(end<H){const c=cuts.filter(v=>v>y+1&&v<=end);if(c.length)end=c[c.length-1]}
+      const sy=Math.round(y*k),sh=Math.min(Math.round((end-y)*k),cv.height-sy),sc=document.createElement('canvas');sc.width=cv.width;sc.height=sh;
+      const g=sc.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,sc.width,sh);g.drawImage(cv,0,sy,cv.width,sh,0,0,cv.width,sh);
+      if(!first)pdf.addPage();first=false;pdf.addImage(sc.toDataURL('image/jpeg',.92),'JPEG',8,8,194,sh/k*194/W);y=end}
+    pdf.save(fname(s.name)+'(Full Report)'+uq()+'.pdf')
+  }catch(e){console.error(e);alert('❌ PDF could not be created: '+(e.message||e)+'\n\nPlease check your internet connection (the PDF tool loads once online) and try again.')}
+  finally{fr.remove();PDFBUSY=false}}
+
+// ---------- license / developer ----------
+function checkLic(){const exp=LIC.expiry&&LIC.expiry<today();const lk=LIC.status==='blocked'||exp;$('lock').style.display=lk?'flex':'none';$('lockAmt').textContent=fm(LIC.amount);payUi();if(!lk)expiryNudge()}
+let taps=0,tt;function devTap(){taps++;clearTimeout(tt);tt=setTimeout(()=>taps=0,6000);if(taps>=30){taps=0;$('dev').style.display='flex';$('devA').style.display='block';$('devB').style.display='none';$('dp').value='';$('de').textContent=''}}
+function devOpen(){$('devA').style.display='none';$('devB').style.display='block';devShow()}
+async function devLogin(){const e=$('dm').value.trim().toLowerCase(),p=$('dp').value;if(!e||!p){$('de').textContent='❌ Enter email and password';return}
+ $('de').textContent='⏳ Logging in...';let u;
+ try{u=await devAuth.signInWithEmailAndPassword(e,p)}catch(x){$('de').textContent='❌ Incorrect Email or Password';return}
+ let ok=false;try{const dv=(await devDb.ref('developer').once('value')).val();ok=!!dv&&dv.uid===u.user.uid}catch(x){ok=false}
+ if(!ok){await devAuth.signOut().catch(()=>{});$('de').textContent='❌ This account is not the Developer';return}
+ try{const sn=await devDb.ref('af/af_lic').once('value');if(sn.val()){LIC=JSON.parse(sn.val());localStorage.setItem('af_lic',sn.val())}}catch(x){}
+ $('de').textContent='';devOpen()}
+function devClose(){$('dev').style.display='none';$('dp').value='';devAuth.signOut().catch(()=>{})}
+function devShow(){$('devS').innerHTML='Status: <b>'+(LIC.status==='blocked'?'⛔ Blocked':'✅ Active')+'</b> | Valid till: <b>'+(LIC.expiry||'No limit')+'</b>';$('dd').value=LIC.expiry||'';$('da').value=LIC.amount}
+function devSet(s){LIC={status:s,expiry:$('dd').value,amount:Number($('da').value)||21999};const j=JSON.stringify(LIC);try{localStorage.setItem('af_lic',j)}catch(e){}
+ devDb.ref('af/af_lic').set(j).then(()=>{devShow();checkLic()}).catch(e=>alert('Could not save: '+(e.code||e.message)+' (check the Firebase Rules)'))}
+// ---------- login / nav ----------
+function doLogin(){const e=$('lu').value.trim().toLowerCase(),p=$('lp').value;if(!e||!p){$('le').textContent='❌ Enter email and password';return}
+ $('le').textContent='⏳ Checking email and password...';
+ tmo(fauth.signInWithEmailAndPassword(e,p),12000,'Firebase login').then(c=>{$('le').textContent='⏳ Login OK, loading...';return afterAuth(c.user)}).catch(err=>{const c=err.code||'';
+  if(/^Timeout/.test(err.message||'')){$('le').textContent='⏳ Running connection checks (10 sec)...';diag(e,p).then(t=>{$('le').innerHTML='❌ Login is stuck.<br><small style="color:#333">'+t+'</small>'});return}
+  $('le').textContent=/invalid.?(credential|login|password)|wrong.?password|not.?found/i.test(c)?'❌ Wrong Email or Password':/operation.?not.?allowed/i.test(c)?'❌ Email/Password sign-in is not enabled in Firebase':/too.?many/i.test(c)?'❌ Too many attempts, please try again later':(err instanceof TypeError)?'❌ Cannot reach the Google server (internet or network blocked). Please try another network':'❌ '+(c||err.message)})}
+async function diag(e,p){const o=[],T=(u,x)=>Promise.race([fetch(u,x),new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),8000))]);
+ try{const r=await T('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+firebaseConfig.apiKey,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,password:p,returnSecureToken:true})});const j=await r.json();o.push('1) Auth server: '+(r.ok?'OK ✅':'❌ '+((j.error&&j.error.message)||r.status)))}catch(x){o.push('1) Auth server: ❌ '+x.message)}
+ try{await T('https://apis.google.com/js/api.js',{mode:'no-cors'});o.push('2) apis.google.com: OK ✅')}catch(x){o.push('2) apis.google.com: ❌ '+x.message)}
+ try{const r=await T(firebaseConfig.databaseURL+'/.json?shallow=true');o.push('3) Database: '+(r.status===401||r.status===200?'OK ✅ ('+r.status+')':'❌ '+r.status))}catch(x){o.push('3) Database: ❌ '+x.message)}
+ return o.join('<br>')}
+let BUSY=false;
+let step='';
+function tmo(p,ms,l){return Promise.race([p,new Promise((_,r)=>setTimeout(()=>r(new Error('Timeout: '+l+' (no response from the database)')),ms))])}
+async function afterAuth(user){if(BUSY||CUR)return;BUSY=true;const em=(user.email||'').toLowerCase();
+ try{
+  step='1/4 Email login OK, connecting to the database...';$('le').textContent='⏳ '+step;
+  await tmo(fdb.ref('users/'+user.uid).set({email:em,last:new Date().toISOString()}),12000,'users save');
+  step='2/4 Owner check...';$('le').textContent='⏳ '+step;
+  OWNER=(await tmo(fdb.ref('owner').once('value'),12000,'owner read')).val();
+  if(!OWNER){OWNER={email:em,uid:user.uid};await tmo(fdb.ref('owner').set(OWNER),12000,'owner save')}
+  step='3/4 Access check...';$('le').textContent='⏳ '+step;
+  let role=null,st=null;
+  if(OWNER.uid===user.uid||OWNER.email===em)role='owner';
+  else{const sn=await tmo(fdb.ref('af/af_staff').once('value'),12000,'staff read');let arr=[];try{arr=JSON.parse(sn.val()||'[]')}catch(e){}st=arr.find(x=>(x.u||'').toLowerCase()===em);if(st)role='staff'}
+  if(!role){$('le').innerHTML='⏳ Login successful ('+esc(em)+'), but the Owner has not given you access yet. Please ask the Owner to grant access from the Control Panel.';await fauth.signOut();BUSY=false;return}
+  DBON=true;
+  fdb.ref('af').on('value',onRemote);
+  if(role==='owner')fdb.ref('users').on('value',sn=>{USERS=sn.val()||{};if(CUR&&ACT==='ctl')renderCtl()});
+  start({role,name:role==='owner'?'Owner':st.name,id:role==='owner'?'owner':st.id,email:em});
+ }catch(err){console.error(err);$('le').textContent='❌ Database error ['+step.slice(0,3)+']: '+(err.code||err.message)+' — check that the Rules are published and the Database URL is correct';try{await fauth.signOut()}catch(e){}}
+ BUSY=false}
+function applyKey(k,v){if(k==='af_students')S=v;else if(k==='af_pays')P=v;else if(k==='af_fees')F=v;else if(k==='af_lic')LIC=v;else if(k==='af_staff')ST=v;else if(k==='af_trash')TRS=v;else if(k==='af_dismissed')DIS=v}
+function onRemote(snap){const v=snap.val()||{};let ch=false;const dirty=dirtyGet();
+ SYNC.forEach(k=>{const prot=DK.includes(k);
+  if(v[k]==null){const l=localStorage.getItem(k);if(l!=null&&k!=='af_lic')fdb.ref('af/'+k).set(l).then(()=>{try{localStorage.setItem('af_base_'+k,l)}catch(e){}}).catch(()=>{});return}
+  if(prot&&dirty.includes(k))return; // unsynced local changes: flush will MERGE, never overwrite
+  const loc=localStorage.getItem(k);
+  if(v[k]!==loc){
+   if(prot&&sus(k,loc,v[k])){rescue(k,loc,v[k]);return}
+   if(prot&&loc!=null&&_pc(v[k])<_pc(loc)&&k!=='af_staff'&&k!=='af_fees')snapNow('Before applying online update ('+LBL[k]+')','pre');
+   try{localStorage.setItem(k,v[k]);applyKey(k,JSON.parse(v[k]));ch=true}catch(e){}}
+  if(prot)try{localStorage.setItem('af_base_'+k,v[k])}catch(e){}});
+ dirtyGet().forEach(flushKey);
+ if(!ch)return;checkLic();if(!CUR)return;
+ if(CUR.role==='staff'&&!ST.some(x=>x.id===CUR.id)){alert('Your access has been removed by the Owner.');logout();return}
+ CL.forEach(c=>{const e=$('f-'+c);if(e)e.value=F[c]||0});
+ drawNav();if(ACT==='home')renderAll();else if(ACT==='cls')renderCls();else if(ACT==='ctl')renderCtl();else if(ACT==='trash')renderTrash()}
+// ---------- calculations ----------
+const pad=n=>String(n).padStart(3,'0');
+const mdiff=(a,b)=>{const[y1,m1]=a.split('-').map(Number),[y2,m2]=b.split('-').map(Number);return(y2-y1)*12+m2-m1};
+const spays=s=>P.filter(p=>p.sid===s.id).sort((a,b)=>a.rno-b.rno);
+const ptotal=s=>spays(s).reduce((a,p)=>a+p.amt,0);
+const rcv=p=>Math.max(0,p.amt-(p.disc||0)); // cash actually received (credit minus discount)
+const dets=p=>p.det||(p.months||[]).map(m=>({m,amt:(S.find(x=>x.id===p.sid)||{fee:0}).fee}));
+function mdisc(s,m){let t=0;spays(s).forEach(p=>{const D=dets(p),has=D.some(d=>d.disc);let dr=has?0:(p.disc||0);D.forEach(d=>{if(has){if(d.m===m)t+=d.disc||0}else{const x=Math.min(dr,d.amt);dr-=x;if(d.m===m)t+=x}})});return t}
+const kfee=(s,m)=>m==='ADM'?(s.adm||0):s.fee;
+const admPaid=s=>mpaid(s,'ADM');
+const admDue=s=>Math.max(0,(s.adm||0)-admPaid(s));
+function admTxt(s){const ap=admPaid(s),ad=admDue(s);if(!(s.adm>0)&&!ap)return 'Nil';if(ad===0)return mk(ap)+' - Paid on '+fdate(mdate(s,'ADM'));return (ap>0?'Paid '+mk(ap)+' | ':'')+'Pending '+mk(ad)}
+function covRows(det){const n=det.filter(d=>d.m!=='ADM').length,a=det.find(d=>d.m==='ADM'),r=[];if(n||!a)r.push(['Months Covered:',n+' month'+(n==1?'':'s')]);if(a)r.push(['Admission Fee:',fm(a.amt)]);return r}
+function mpaid(s,m){let t=0;spays(s).forEach(p=>dets(p).forEach(d=>{if(d.m===m)t+=d.amt}));return t}
+function mst(s,m){const k=mdiff(ym(s.date),m);if(k<0)return null;const pd=mpaid(s,m);return{paid:pd,bal:Math.max(0,s.fee-pd),k}}
+function mdate(s,m){let r='';spays(s).forEach(p=>{if(dets(p).some(d=>d.m===m&&d.amt>0))r=p.date});return r}
+function stats(s){const c=cur(),st=ym(s.date);let due=0,months=[],bals={},adv=0;
+ for(let m=st;m<=c;m=addM(m,1)){const q=mst(s,m);if(q.bal>0){due+=q.bal;months.push(m);bals[m]=q.bal}if(q.paid>s.fee)adv+=q.paid-s.fee}
+ spays(s).forEach(p=>dets(p).forEach(d=>{if(d.m!=='ADM'&&d.m>c)adv+=d.amt}));
+ const cq=st<=c?mst(s,c):null;return{due,months,bals,tot:ptotal(s),adv,cdue:cq?cq.bal:0,adm:st<=c}}
+let PANEL=null;
+function renderAll(){const t=today(),c=cur();let tc=0,mc=0,pend=0,cp=0,adv=0,pc=0;
+ P.forEach(p=>{if(p.date===t)tc+=rcv(p);if(ym(p.date)===c)mc+=rcv(p)});
+ S.forEach(s=>{const x=stats(s);pend+=x.due;cp+=x.cdue;adv+=x.adv;if(x.adm&&!x.cdue)pc++});
+ const C=[['Total Students',S.length,'','all'],["Today's Collection",fm(tc),'s2','today'],['Monthly Collection',fm(mc),'s2','mcol'],['Paid This Month',pc+' students','s2','paid'],['Total Pending',fm(pend),'s4','pend'],['This Month Pending',fm(cp),'s3','cpend'],['Advance Payment',fm(adv),'s5','adv']];
+ const LK=['today','mcol','pend','cpend','adv'];$('cards').innerHTML=C.map(x=>!canView()&&LK.includes(x[3])?`<div class="card stat" style="opacity:.8;border-left-color:var(--gray)"><small>${x[0]}</small><div>🔒 Locked</div><small style="color:var(--gray)">Owner access only</small></div>`:`<div class="card stat ${x[2]}" style="cursor:pointer" onclick="showPanel('${x[3]}')"><small>${x[0]}</small><div>${x[1]}</div><small style="color:var(--gold);font-weight:700">👆 Tap to view</small></div>`).join('');
+ renderPanel();renderList()}
+function showPanel(k){if(!canView()&&['today','mcol','pend','cpend','adv'].includes(k))return;PANEL=PANEL===k?null:k;renderPanel();if(PANEL)$('panel').scrollIntoView({behavior:'smooth',block:'start'})}
+function renderPanel(){const el=$('panel'),k=PANEL;if(!k){el.innerHTML='';return}const c=cur(),t=today();
+ const T={all:'👥 Total Students',today:"💰 Today's Collection",mcol:'💰 Monthly Collection - '+mf(c),paid:'✅ Paid This Month - '+mf(c),pend:'🔴 Total Pending - Who has not paid',cpend:'🟠 This Month Pending - '+mf(c),adv:'🟣 Advance Payment Students'};
+ let L=[];const X=S.map(s=>({s,x:stats(s)}));
+ if(k==='all')L=S.map(s=>({s,i:s.cls+'-'+s.sec+(canView()?' | Fee '+fm(s.fee):'')}));
+ if(k==='today'||k==='mcol')L=P.filter(p=>k==='today'?p.date===t:ym(p.date)===c).map(p=>({s:S.find(x=>x.id===p.sid),i:'Paid '+fm(rcv(p))+' on '+fdate(p.date)+' | Receipt '+pad(p.rno)+(p.due>0?' | Balance '+fm(p.due):'')})).filter(o=>o.s);
+ if(k==='paid')L=X.filter(o=>o.x.adm&&!o.x.cdue).map(o=>({s:o.s,i:'✅ '+mname(c)+' paid'+(canView()?' '+fm(o.s.fee):'')+(mdate(o.s,c)?' on '+fdate(mdate(o.s,c)):'')}));
+ if(k==='pend')L=X.filter(o=>o.x.due).map(o=>({s:o.s,bad:1,i:'Pending '+fm(o.x.due)+' ('+o.x.months.map(m=>mname(m)+(o.x.bals[m]<o.s.fee?' '+fm(o.x.bals[m]):'')).join(', ')+')'}));
+ if(k==='cpend')L=X.filter(o=>o.x.cdue).map(o=>({s:o.s,bad:1,i:mname(c)+' balance '+fm(o.x.cdue)+(o.x.cdue<o.s.fee?' (partial paid)':'')}));
+ if(k==='adv')L=X.filter(o=>o.x.adv).map(o=>({s:o.s,i:'Advance '+fm(o.x.adv)}));
+ el.innerHTML=`<div class="card" style="margin:12px 0;border-top:4px solid var(--gold)"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h3 style="margin:0">${T[k]} <span class="tag ${L.length&&L[0].bad?'no':'ok'}">${L.length}</span></h3><button class="btn r" style="padding:4px 12px" onclick="PANEL=null;renderPanel()">✕ Close</button></div>`+
+ (L.length?L.map(o=>`<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid var(--light)"><div style="flex:1;min-width:170px"><b style="font-size:17px">${esc(o.s.name)}</b><div class="hint">Father: ${esc(o.s.father)} | Class ${o.s.cls}-${o.s.sec}</div><div class="hint">📱 ${esc(o.s.mobile)}</div><div style="margin-top:4px;font-size:14px;color:${o.bad?'var(--red)':'var(--green)'};font-weight:700">${o.i}</div></div>
+ <div class="vb"><button style="background:var(--green)" onclick="openPay('${o.s.id}')">💰 Pay Now</button>${callBtns(o.s)}</div></div>`).join(''):'<p class="hint">No students yet.</p>')+'</div>'}
+function callBtns(s){return `<a style="background:var(--blue)" href="tel:${esc(s.mobile)}">📞 Call</a><button style="background:#25d366" onclick="remind('${s.id}','wa')">💬 WhatsApp</button><button style="background:#00838f" onclick="remind('${s.id}','sms')">📱 SMS</button><button style="background:#6d4c41" onclick="editStudent('${s.id}')">✏️ Edit</button>`}
+function rowBtns(s){return callBtns(s)+`<button style="background:var(--orange)" onclick="slip('${s.id}')">🧾 Payment Receipt</button>`+(true?`<button style="background:var(--purple)" onclick="demand('${s.id}')">📑 Demand Bill</button><button style="background:var(--navy)" onclick="ledger('${s.id}')">📋 Full PDF Report</button>`:'')+`<button style="background:#00695c" onclick="showInfo('${s.id}')">👤 Students Info</button>`+(canDel()?`<button style="background:var(--red)" onclick="del('${s.id}')">🗑 Delete</button>`:'')}
+let PICK=null;
+function sugHide(){const e=$('sug');if(e)e.style.display='none'}
+function pickStudent(id){const s=S.find(x=>x.id===id);if(!s)return;PICK=id;$('search').value=s.name;renderList();sugHide();
+ const r=$('results');if(r)r.scrollIntoView({behavior:'smooth',block:'start'})}
+function sugRender(L,q){const e=$('sug');if(!e)return;
+ if(!q||PICK){e.style.display='none';return}
+ e.innerHTML=L.length?L.slice(0,8).map(s=>`<div onclick="pickStudent('${s.id}')" style="padding:10px 12px;border-bottom:1px solid var(--light);cursor:pointer"><b>${esc(s.name)}</b><div class="hint">Father: ${esc(s.father)} | Class ${s.cls}-${s.sec} | 📱 ${esc(s.mobile)}</div></div>`).join('')+(L.length>8?`<div class="hint" style="padding:8px 12px">+${L.length-8} more - keep typing to narrow down</div>`:''):'<div class="hint" style="padding:10px 12px">No student found.</div>';
+ e.style.display='block'}
+document.addEventListener('click',ev=>{const w=$('search');if(w&&!w.parentNode.contains(ev.target))sugHide()});
+function renderList(){const q=$('search').value.toLowerCase().trim();
+ let L=S.filter(s=>!q||[s.name,s.father,s.mobile,s.cls,s.cls+s.sec,'class '+s.cls].join(' ').toLowerCase().includes(q));
+ sugRender(L,q);if(PICK)L=L.filter(s=>s.id===PICK);
+ $('listCard').style.display=q?'none':'block';$('results').innerHTML='';
+ if(q){$('results').innerHTML=L.length?L.map(s=>{const x=stats(s);return`<div class="card" style="margin-bottom:10px;border-left:5px solid ${x.due?'var(--red)':'var(--green)'}"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+  <div style="flex:1;min-width:170px"><b style="font-size:18px;font-family:'Playfair Display',Georgia,serif">${esc(s.name)}</b><div class="hint">Father: ${esc(s.father)} | Class ${s.cls}-${s.sec}</div><div class="hint">📱 ${esc(s.mobile)} | Fee: ${mk(s.fee)}/month</div>
+  <div style="margin-top:6px"><span class="tag ${x.due?'no':'ok'}">${x.due?'Pending '+mk(x.due):'All Clear'}</span></div>${x.due?`<div class="hint" style="margin-top:6px">Unpaid: ${x.months.map(mname).join(', ')}</div>`:''}</div>
+  <div class="vb"><button style="background:var(--green)" onclick="openPay('${s.id}')">💰 Pay Now</button>${rowBtns(s)}</div></div></div>`}).join(''):'<div class="card hint">No student found.</div>';return}
+ $('list').innerHTML='<tr><th>#</th><th>Student</th><th>Father</th><th>Class</th><th>Fee</th><th>Pending</th><th>Actions</th></tr>'+
+ (L.map((s,i)=>{const x=stats(s);return`<tr><td>${i+1}</td><td><b>${esc(s.name)}</b><br><span class="hint">${esc(s.mobile)}</span></td><td>${esc(s.father)}</td><td>${s.cls}-${s.sec}</td><td>${mk(s.fee)}</td><td><span class="tag ${x.due?'no':'ok'}">${x.due?mk(x.due):'Clear'}</span></td><td><div class="vb"><button style="background:var(--green)" onclick="openPay('${s.id}')">💰 Pay Now</button>${rowBtns(s)}</div></td></tr>`}).join('')||'<tr><td colspan="7">No students found</td></tr>')}
+// ---------- Pay Now popup ----------
+let PN=null,PNSEL={};
+function openPay(id){PN=id;const s=S.find(x=>x.id===id),x=stats(s);PNSEL=pnDefault(s,x);renderPN();$('pn').style.display='flex'}
+const pnKeys=()=>Object.keys(PNSEL).sort((a,b)=>a==='ADM'?-1:b==='ADM'?1:a<b?-1:a>b?1:0);
+function pnDefault(s,x){const o={};if((s.adm||0)>0&&!spays(s).length&&admDue(s)>0)o.ADM=admDue(s);x.months.forEach(m=>o[m]=x.bals[m]);return o}
+function closePay(){$('pn').style.display='none'}
+function pnChips(){const s=S.find(x=>x.id===PN),c=cur(),st=ym(s.date);let h='';
+ if((s.adm||0)>0||admPaid(s)>0){const ap=admPaid(s),ab=admDue(s),sl='ADM' in PNSEL;let cl,sb;if(ab===0){cl='pd';sb='✅ Paid'}else if(ap>0){cl='pa';sb='Bal '+fm(ab)}else{cl='pe';sb=fm(ab)+' due'}
+  h+=`<div class="mcol"><div class="mch ${cl} ${sl?'on':''}" ${ab===0?'':`onclick="pnToggle('ADM')"`}><b>Admission Fee</b><span>${sl?'✔ Selected':sb}</span></div>${ap>0&&canDel()?`<button class="mdel" onclick="delMonth('ADM')">🗑 Delete ${fm(ap)}</button>`:''}${ap>0?`<button class="mdel" style="background:var(--orange)" onclick="dlRcpt('ADM')">🧾 Download Receipt</button>`:''}</div>`}
+ for(let m=st;m<=addM(c,11);m=addM(m,1)){const q=mst(s,m),sel=m in PNSEL;let cl,sub;
+  if(q.bal===0){cl='pd';sub='✅ Paid'}else if(q.paid>0){cl='pa';sub='Bal '+fm(q.bal)}else if(m<=c){cl='pe';sub=fm(q.bal)+' due'}else{cl='ad';sub='Advance'}
+  h+=`<div class="mcol"><div class="mch ${cl} ${sel?'on':''}" ${q.bal===0?'':`onclick="pnToggle('${m}')"`}><b>${mname(m)}</b><span>${sel?'✔ Selected':sub}</span></div>${q.paid>0&&canDel()?`<button class="mdel" onclick="delMonth('${m}')">🗑 Delete ${fm(q.paid)}</button>`:''}${q.paid>0?`<button class="mdel" style="background:var(--orange)" onclick="dlRcpt('${m}')">📥 Download Receipt</button><button class="mdel" style="background:var(--navy)" onclick="dlLedger()">📄 Full PDF Report</button>`:''}</div>`}
+ const el=$('pnch'),sl=el.scrollLeft;el.innerHTML=h;el.scrollLeft=sl}
+const pnT=()=>Object.values(PNSEL).reduce((a,b)=>a+b,0);
+function pnSelHtml(){const ks=pnKeys();
+ $('pnsel').innerHTML=ks.length?ks.map(m=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--light)"><span>${mf(m)}</span><b>${fm(PNSEL[m])}</b></div>`).join(''):'<div class="hint">Select months above (advance months are allowed).</div>';
+ $('pna').value=pnT()||'';pnCalc()}
+function pnToggle(m){const s=S.find(x=>x.id===PN);if(m in PNSEL)delete PNSEL[m];else if(m==='ADM'){PNSEL[m]=admDue(s)>0?admDue(s):(s.adm||0)}else{const q=mst(s,m);PNSEL[m]=q.bal>0?q.bal:s.fee}pnChips();pnSelHtml()}
+function pnCalc(){const T=pnT(),A=Number($('pna').value)||0,D=Math.max(0,Number($('pnd').value)||0),d=T-A,e=$('pnm');$('pnt').textContent=fm(T);
+ const R=Math.max(0,A-D);$('pnrv').textContent=fm(R);
+ if(!T){e.textContent='';return}
+ let h;
+ if(d>0){e.style.color='var(--red)';h='🔴 Shortfall: '+fm(d)+' - will stay in balance'}
+ else if(d<0){e.style.color='var(--green)';h='Extra: '+fm(-d)+' - will be added to advance'}
+ else{e.style.color='var(--green)';h='✅ Full payment'}
+ if(D>A){e.style.color='var(--red)';h='⚠️ Discount cannot be more than Total Amount'}
+ else if(D>0)h+=' | Discount '+fm(D)+' → Received '+fm(R);
+ e.textContent=h}
+function renderPN(){const s=S.find(x=>x.id===PN);if(!s)return closePay();const x=stats(s);
+ $('pnb').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><h2 style="margin:0">${esc(s.name)}</h2><div class="hint">Father: ${esc(s.father)} | Class ${s.cls}-${s.sec}</div><div class="hint">📱 ${esc(s.mobile)} | Fee: <b>${fm(s.fee)}</b>/month</div></div><button class="btn r" style="padding:4px 10px" onclick="closePay()">✕</button></div>
+ <div style="margin:10px 0;padding:8px;border-radius:8px;background:${x.due?'#fbe0dc':'#d9f2e4'};font-weight:700">${x.due?'Total Pending: '+fm(x.due)+' ('+x.months.length+' month'+(x.months.length>1?'s':'')+')':'✅ No dues'}${x.adv?' | Advance '+fm(x.adv):''}</div>
+ ${admDue(s)>0?`<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0 0 10px;padding:8px;border-radius:8px;background:#fff3cd;font-weight:700"><span>🎓 Admission Fee pending: ${fm(admDue(s))}</span><button class="btn g" style="padding:6px 12px" onclick="pnToggle('ADM')">💰 Pay Admission Fee</button></div>`:(admPaid(s)>0?`<div style="margin:0 0 10px;padding:8px;border-radius:8px;background:#d9f2e4;font-weight:700">🎓 Admission Fee: ✅ Paid ${fm(admPaid(s))} on ${fdate(mdate(s,'ADM'))}</div>`:'')}
+ <div style="font-weight:700;margin-bottom:4px">Select months (tap) 👉</div><div id="pnch" class="mrow"></div>
+ <div id="pnsel" style="margin-top:6px"></div>
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:8px;background:var(--light);border-radius:8px;font-weight:700"><span>Total Payable</span><span id="pnt" style="font-size:20px;font-family:'Playfair Display',Georgia,serif"></span></div>
+ <label>Total Amount (₹) - editable</label><input type="number" id="pna" oninput="pnCalc()" style="font-size:20px;font-weight:700"><div class="hint" id="pnm" style="font-weight:700;margin-top:6px;font-size:15px"></div>
+ <label>🏷️ Discount (₹) - optional</label><input type="number" id="pnd" min="0" placeholder="0" oninput="pnCalc()" style="font-size:20px;font-weight:700">
+ <button class="btn g big" onclick="pnPay()" style="display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px"><span>✅ Pay Now / Receive Payment</span><span id="pnrv" style="font-size:22px;font-family:'Playfair Display',Georgia,serif">₹0</span></button>
+ <div id="pnh"></div>
+ <div class="vb" style="margin-top:10px"><a href="tel:${esc(s.mobile)}" style="background:var(--blue)">📞 Call</a><button style="background:#25d366" onclick="remind('${s.id}','wa')">💬 WhatsApp</button><button style="background:#00838f" onclick="remind('${s.id}','sms')">📱 SMS</button><button style="background:#6d4c41" onclick="editStudent('${s.id}')">✏️ Edit</button>${true?`<button style="background:var(--purple)" onclick="demand('${s.id}')">📑 Demand Bill</button><button style="background:var(--navy)" onclick="dlFull('${s.id}')">📋 Full PDF Report</button>`:''}</div>`;pnChips();pnSelHtml();pnHist()}
+function pnPay(){const s=S.find(x=>x.id===PN),ks=pnKeys();let rem=Number($('pna').value)||0;const disc=Math.max(0,Number($('pnd').value)||0);
+ if(!ks.length)return alert('Select at least one month or the Admission Fee.');if(rem<=0)return alert('Enter the total amount.');if(disc>rem)return alert('Discount cannot be more than the Total Amount.');
+ const det=[];ks.forEach(m=>{const a=Math.min(rem,PNSEL[m]);if(a>0){det.push({m,amt:a});rem-=a}});if(rem>0)det[det.length-1].amt+=rem;
+ det.forEach(d=>d.bal=Math.max(0,kfee(s,d.m)-(mpaid(s,d.m)+d.amt)));
+ {let dr=disc;det.forEach(d=>{const x=Math.min(dr,d.amt);if(x>0){d.disc=x;dr-=x}})}
+ const amt=det.reduce((a,d)=>a+d.amt,0),rno=(P.length?Math.max(...P.map(p=>p.rno)):0)+1,p={rno,sid:s.id,date:today(),amt,months:det.map(d=>d.m),det,by:CUR.name};if(disc>0)p.disc=disc;P.push(p);p.due=stats(s).due;sv('af_pays',P);
+ closePay();renderAll();const msg=paidMsg(s,p,p.due);paidPopup(s,p,msg);location.href='sms:'+s.mobile+'?body='+encodeURIComponent(msg)}
+// payment-received proforma (used by Pay Now -> SMS/WhatsApp, and by Action WhatsApp when no dues)
+function paidMsg(s,p,due){const ms=dets(p).map(d=>mf(d.m)).join(', ');
+ return `🌟 प्रिय,\n-------------------\nयह सूचित किया जाता है कि आपके बच्चे ${s.name} की फीस (${ms}) महीने की सफलतापूर्वक जमा हो गई है।\n━━━━━━━━━━━━━━━━━━━\nमहीना: ${ms}\nकुल राशि: ${fm(p.amt)}\n${p.disc?'छूट (Discount): -'+fm(p.disc)+'\nप्राप्त राशि: '+fm(rcv(p))+'\n':''}Fee collection date: ${fdate(p.date)}\n`+(due>0?`बाकी राशि (Balance): ${fm(due)}\n`:'')+`━━━━━━━━━━━━━━━━━━━\n\nधन्यवाद\n\nधन्यवाद 🙏\n${NAME}\n${ADDR}\n${DIR}\n\n━━━━━━━━━━━━━━━━━━━`}
+let PDM=null;
+function paidPopup(s,p,msg){PDM={s,msg};let e=$('pdone');if(!e){e=document.createElement('div');e.id='pdone';e.className='ov';document.body.appendChild(e)}
+ e.innerHTML=`<div class="box" style="max-width:380px"><h3 style="margin:0 0 6px">✅ Payment saved</h3><div class="hint">Receipt ${pad(p.rno)} | ${fm(rcv(p))}${p.disc?' (Discount '+fm(p.disc)+')':''}${p.due>0?' | Balance '+fm(p.due):''}</div><div class="hint" style="margin:8px 0 12px">The message has opened in your SMS app. Now send it on WhatsApp as well 👇</div><div class="vb"><button style="background:#25d366" onclick="paidWa()">💬 Send on WhatsApp</button><button style="background:#00838f" onclick="paidSms()">📱 Open SMS again</button><button style="background:var(--orange)" onclick="pdoneClose();slip('${s.id}',${p.rno})">🧾 Payment Receipt</button><button style="background:var(--red)" onclick="pdoneClose()">✕ Close</button></div></div>`;e.style.display='flex'}
+function pdoneClose(){$('pdone').style.display='none'}
+function paidWa(){if(PDM)window.open('https://wa.me/'+num(PDM.s.mobile)+'?text='+encodeURIComponent(PDM.msg),'_blank')}
+function paidSms(){if(PDM)location.href='sms:'+PDM.s.mobile+'?body='+encodeURIComponent(PDM.msg)}
+function pnHist(){const s=S.find(x=>x.id===PN),L=spays(s).reverse(),dl=canDel();
+ $('pnh').innerHTML=`<div style="font-weight:700;margin:14px 0 4px">🧾 Payment History${dl?' - delete a wrong entry':''}</div>`+(L.length?L.map(p=>{const D=dets(p);return`<div style="border:1px solid var(--bd);border-radius:8px;padding:6px 8px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px"><div style="font-size:13px"><b>Receipt ${pad(p.rno)}</b> | ${fdate(p.date)} | <b>${fm(rcv(p))}</b>${p.disc?' <span style="color:var(--red)">(Disc '+fm(p.disc)+')</span>':''}${p.by?' | 👤 '+esc(p.by):''}</div>${dl?`<button class="btn r" style="padding:3px 8px;font-size:12px" onclick="delRcpt(${p.rno})">🗑 Whole Receipt</button>`:''}</div>`+D.map(d=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-top:1px dotted var(--bd)"><span>${mf(d.m)} - <b>${fm(d.amt)}</b></span>${dl?`<button class="btn r" style="padding:3px 8px;font-size:12px" onclick="delPay(${p.rno},'${d.m}')">🗑 Delete</button>`:''}</div>`).join('')+'</div>'}).join(''):'<div class="hint">No payments yet.</div>')}
+function pnReset(sid){const s=S.find(x=>x.id===sid),x=stats(s);PNSEL=pnDefault(s,x);renderAll();renderPN()}
+function recalc(s){P.filter(p=>p.sid===s.id).forEach(p=>(p.det||[]).forEach(d=>d.bal=Math.max(0,kfee(s,d.m)-mpaid(s,d.m))))}
+function delPay(rno,m){if(!needDel())return;const p=P.find(x=>x.rno===rno);if(!p)return;const s=S.find(x=>x.id===p.sid),D=dets(p),r=D.find(d=>d.m===m);
+ if(!confirm('Move '+mf(m)+' from receipt '+pad(rno)+' to Trash?'))return;
+ tpay(s,mf(m)+' '+fm(r.amt)+' (Receipt '+pad(rno)+')',[{rno,date:p.date,det:[{m:r.m,amt:r.amt}]}]);
+ p.det=D.filter(d=>d.m!==m);
+ if(!p.det.length)P=P.filter(x=>x.rno!==rno);else{p.amt=p.det.reduce((a,d)=>a+d.amt,0);if(p.disc)p.disc=p.det.some(d=>d.disc)?p.det.reduce((a,d)=>a+(d.disc||0),0):Math.min(p.disc,p.amt);p.months=p.det.map(d=>d.m);delete p.due}
+ recalc(s);sv('af_pays',P);pnReset(s.id)}
+function delMonth(m){if(!needDel())return;const s=S.find(x=>x.id===PN),t=mpaid(s,m);if(!t)return;
+ if(!confirm('Move the '+mf(m)+' payment of '+fm(t)+' to Trash?'))return;
+ const parts=[];spays(s).forEach(p=>{const D=dets(p),r=D.filter(d=>d.m===m);if(!r.length)return;parts.push({rno:p.rno,date:p.date,det:r.map(d=>({m:d.m,amt:d.amt}))});
+  p.det=D.filter(d=>d.m!==m);if(!p.det.length)P=P.filter(x=>x.rno!==p.rno);else{p.amt=p.det.reduce((a,d)=>a+d.amt,0);if(p.disc)p.disc=p.det.some(d=>d.disc)?p.det.reduce((a,d)=>a+(d.disc||0),0):Math.min(p.disc,p.amt);p.months=p.det.map(d=>d.m);delete p.due}});
+ tpay(s,mf(m)+' '+fm(t),parts);recalc(s);sv('af_pays',P);pnReset(s.id)}
+function delRcpt(rno){if(!needDel())return;const p=P.find(x=>x.rno===rno);if(!p)return;const s=S.find(x=>x.id===p.sid);
+ if(!confirm('Move the whole receipt '+pad(rno)+' ('+fm(p.amt)+') to Trash?'))return;
+ tpay(s,'Receipt '+pad(rno)+' '+fm(p.amt),[{rno,date:p.date,det:dets(p).map(d=>({m:d.m,amt:d.amt}))}]);
+ P=P.filter(x=>x.rno!==rno);sv('af_pays',P);pnReset(s.id)}
+
+// ---------- Students Info (per student) ----------
+function lastPay(s){const L=spays(s);if(!L.length)return null;return L.reduce((a,b)=>(b.date>a.date||(b.date===a.date&&b.rno>a.rno))?b:a)}
+function lastPayTxt(s){const p=lastPay(s);return p?mk(rcv(p))+' on '+fdate(p.date):'No payment yet'}
+function infoRows(s){return [['👤 Student Name',esc(s.name)],["👨 Father's Name",esc(s.father)],['🏫 Class',s.cls+' - Section '+s.sec],['📅 Date of Admission',fdate(s.date)],['📱 Mobile Number',esc(s.mobile)],['💰 Fee per Month',mk(s.fee)],['🎓 Admission Fee',admTxt(s)],['🧾 Last Payment',lastPayTxt(s)]]}
+function showInfo(id){const s=S.find(x=>x.id===id);if(!s)return;
+ let e=$('sinfo');if(!e){e=document.createElement('div');e.id='sinfo';e.className='ov';e.style.cssText='align-items:flex-start;overflow:auto;z-index:70';document.body.appendChild(e)}
+ e.innerHTML=`<div class="box" style="max-width:460px;text-align:left;margin:10px auto"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><h2 style="margin:0">👤 Student Info</h2><button class="btn r" style="padding:4px 10px" onclick="closeInfo()">✕</button></div>
+ <div style="margin-top:10px">`+infoRows(s).map(r=>`<div style="padding:9px 2px;border-bottom:1px solid var(--bd)"><div class="hint" style="margin:0">${r[0]}</div><div style="font-weight:700;font-size:17px">${r[1]}</div></div>`).join('')+`</div>
+ <div class="vb" style="margin-top:12px"><a href="tel:${esc(s.mobile)}" style="background:var(--blue)">📞 Call</a></div>
+ <style>${PDFCSS}.sinfo-t .mt th{padding:6px 3px!important;font-size:10.5px!important}.sinfo-t .mt td{padding:6px 3px!important;font-size:11px!important}.sinfo-t .sum{padding:8px 12px!important}.sinfo-t .sr{font-size:12.5px!important}.sinfo-t .tot{font-size:14px!important}</style>
+ <div class="pdfroot sinfo-t" style="margin-top:12px;overflow-x:auto">${ledgerBody(s)}</div>
+ <button class="btn g big" onclick="dlInfo('${s.id}')">⬇️ Download Students Info</button></div>`;e.style.display='flex'}
+function closeInfo(){const e=$('sinfo');if(e)e.style.display='none'}
+function infoPage(s){const R=infoRows(s).map(r=>`<tr><td class="l">${r[0]}</td><td><b>${r[1]}</b></td></tr>`).join('');
+ return page(`<div class="ttl">STUDENT INFORMATION</div><table class="info">${R}</table>`+ledgerBody(s),'🙏 धन्यवाद &nbsp;|&nbsp; Student Information')}
+function dlInfo(id){const s=S.find(x=>x.id===id);if(!s)return;htmlToPdf(infoPage(s),fname(s.name)+' (Student Info) '+uq()+'.pdf')}
+// ---------- Class-wise fee detail ----------
+let CF='all';
+function setCF(f){CF=f;renderCls()}
+function pickCls(c){$('cc').value=c;renderCls()}
+function renderCls(){const m=$('cm').value||cur(),c=$('cc').value;
+ let A=S.filter(s=>ym(s.date)<=m&&(!c||s.cls===c)).sort((a,b)=>CL.indexOf(a.cls)-CL.indexOf(b.cls)||a.sec.localeCompare(b.sec)||a.name.localeCompare(b.name));
+ const Q=A.map(s=>({s,q:mst(s,m)}));const pd=Q.filter(o=>!o.q.bal),up=Q.filter(o=>o.q.bal);
+ const col=Q.reduce((a,o)=>a+o.q.paid,0),due=Q.reduce((a,o)=>a+o.q.bal,0);
+ let h=`<div class="grid" style="margin:10px 0"><div class="card stat"><small>Students</small><div>${A.length}</div></div><div class="card stat s2"><small>Paid</small><div>${pd.length}</div></div><div class="card stat s4"><small>Unpaid</small><div>${up.length}</div></div><div class="card stat s2"><small>Collected</small><div>${fm(col)}</div></div><div class="card stat s4"><small>Balance Due</small><div>${fm(due)}</div></div></div>`;
+ if(!c){const rows=CL.map(k=>{const z=Q.filter(o=>o.s.cls===k);if(!z.length)return'';const p=z.filter(o=>!o.q.bal).length;return`<tr style="cursor:pointer" onclick="pickCls('${k}')"><td><b>${k}</b></td><td>${z.length}</td><td><span class="tag ok">${p}</span></td><td><span class="tag no">${z.length-p}</span></td><td>${fm(z.reduce((a,o)=>a+o.q.paid,0))}</td><td>${fm(z.reduce((a,o)=>a+o.q.bal,0))}</td></tr>`}).join('');
+  h+=`<div class="card wrap" style="margin-bottom:10px"><div class="hint" style="padding:4px 6px">Tap a class to see its students</div><table><tr><th>Class</th><th>Students</th><th>Paid</th><th>Unpaid</th><th>Collected</th><th>Balance</th></tr>${rows||'<tr><td colspan="6">No students</td></tr>'}</table></div>`}
+ const chip=(k,t,n)=>`<button class="btn ${CF===k?'y':''}" style="${CF===k?'':'background:#fff;color:var(--navy);border:1.5px solid var(--bd)'}" onclick="setCF('${k}')">${t} (${n})</button>`;
+ h+=`<div style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px">${chip('all','All',A.length)}${chip('paid','✅ Paid',pd.length)}${chip('unpaid','🔴 Unpaid',up.length)}</div>`;
+ const L=CF==='paid'?pd:CF==='unpaid'?up:Q;
+ h+=L.length?L.map(o=>{const s=o.s,q=o.q,st=!q.bal?['ok','✅ Paid']:q.paid>0?['no','Partial']:['no','Unpaid'];return`<div class="card" style="margin-bottom:10px;border-left:5px solid ${q.bal?'var(--red)':'var(--green)'}"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div style="flex:1;min-width:170px"><b style="font-size:17px">${esc(s.name)}</b> <span class="tag ${st[0]}">${st[1]}</span><div class="hint">Father: ${esc(s.father)} | Class ${s.cls}-${s.sec}</div><div class="hint">📱 ${esc(s.mobile)} | Fee ${fm(s.fee)}</div><div style="margin-top:4px;font-weight:700;font-size:14px;color:${q.bal?'var(--red)':'var(--green)'}">${mname(m)}: Paid ${fm(q.paid)}${q.bal?' | Balance '+fm(q.bal):''}</div></div><div class="vb"><button style="background:var(--green)" onclick="openPay('${s.id}')">💰 Pay Now</button>${callBtns(s)}</div></div></div>`}).join(''):'<div class="card hint">No students yet.</div>';
+ $('clsOut').innerHTML=h}
+function clsPdf(){$('rm').value=$('cm').value||cur();$('rc').value=$('cc').value;monthReport()}
+// ---------- Access control, staff, trash ----------
+const isOwner=()=>!!CUR&&CUR.role==='owner';
+const stf=()=>(CUR&&ST.find(x=>x.id===CUR.id))||{};
+const canView=()=>isOwner();
+const canDel=()=>!!CUR;
+const mk=x=>canView()?fm(x):'🔐';
+const nextRno=()=>(P.length?Math.max(...P.map(p=>p.rno)):0)+1;
+function needDel(){return !!CUR}
+function toTrash(it){snapPre('Before moving to Trash: '+(it.label||it.type));it.id='t'+Date.now()+Math.random().toString(36).slice(2,5);it.by=CUR.name;it.role=CUR.role;it.at=new Date().toISOString();TRS.push(it);sv('af_trash',TRS);drawNav()}
+function tpay(s,label,parts){toTrash({type:'payment',sid:s.id,label:s.name+' - '+label,parts})}
+function start(c){CUR=c;if(c.role!=='owner')['t-ctl','t-trash'].forEach(i=>{const e=$(i);if(e)e.remove()});$('login').style.display='none';init()}
+function logout(){flushAll(8000).then(()=>{if(dirtyGet().length&&!confirm('Some changes are not synced online yet (no internet?). They are safe on this device and will sync after your next login.\n\nLogout anyway?'))return;fauth.signOut().finally(()=>location.reload())})}
+let ACT='home';
+function tabs(){const b=[['home','🏠 Home'],['cls','📚 Class Wise'],['add','➕ Add Student'],['fees','📋 Fees'],['rep','📊 Reports'],['bk','🛡️ Backup']];return isOwner()?b.concat([['ctl','🛡 Control Panel'],['trash','🗑 Trash'+(TRS.length?' ('+TRS.length+')':'')]]):b}
+function drawNav(){if(!CUR)return;$('nav').innerHTML=tabs().map(t=>`<button class="${t[0]===ACT?'on':''}" onclick="go('${t[0]}')">${t[1]}</button>`).join('')+`<button style="margin-left:auto;color:var(--gold2)" onclick="logout()">👤 ${esc(CUR.name)} · 🚪 Logout</button>`}
+function go(t){if(!isOwner()&&(t==='ctl'||t==='trash'))return;if(!tabs().some(x=>x[0]===t))return;ACT=t;document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('on',e.id==='t-'+t));drawNav();if(t==='home')renderAll();if(t==='cls')renderCls();if(t==='ctl')renderCtl();if(t==='trash')renderTrash();if(t==='bk')renderBk()}
+function addStaff(){if(!isOwner())return;const n=$('sn').value.trim(),u=$('su').value.trim().toLowerCase();
+ if(!n||!u)return alert('Enter name and email.');if((OWNER&&u===OWNER.email)||ST.some(x=>(x.u||'').toLowerCase()===u))return alert('This email already exists.');
+ undismiss(u);ST.push({id:'st'+Date.now(),name:n,u,view:false,del:true});sv('af_staff',ST);['sn','su'].forEach(i=>$(i).value='');renderCtl()}
+function giveAccess(uid){const x=USERS[uid];if(!x)return;const n=prompt('Enter staff name:',(x.email||'').split('@')[0]);if(n===null)return;
+ if(ST.some(y=>(y.u||'').toLowerCase()===x.email))return;ST.push({id:'st'+Date.now(),name:n.trim()||x.email,u:x.email,view:false,del:true});sv('af_staff',ST);renderCtl()}
+function setPerm(id,k,v){const s=ST.find(x=>x.id===id);if(s){s[k]=v;sv('af_staff',ST)}}
+// Deleting a user hides them from the Control Panel (saved in the shared 'dismissed' list, which always works).
+// Removing the raw login record is attempted too, but database rules may refuse it, so that error is ignored.
+function dropUser(uid){const x=USERS[uid],em=x&&(x.email||'').toLowerCase();
+ if(em&&!DIS.includes(em)){DIS.push(em);sv('af_dismissed',DIS)}
+ return fdb.ref('users/'+uid).set(null).then(()=>{delete USERS[uid]}).catch(()=>{})}
+function undismiss(em){em=(em||'').toLowerCase();if(DIS.includes(em)){DIS=DIS.filter(x=>x!==em);sv('af_dismissed',DIS)}}
+function rmStaff(id){if(!isOwner())return;const s=ST.find(x=>x.id===id);if(!s)return;
+ if(!confirm('Delete staff member '+s.name+' ('+s.u+')?\n\nThey will lose all access immediately.'))return;
+ const em=(s.u||'').toLowerCase(),uid=Object.keys(USERS).find(k=>USERS[k]&&(USERS[k].email||'').toLowerCase()===em);
+ ST=ST.filter(x=>x.id!==id);sv('af_staff',ST);renderCtl();if(uid)dropUser(uid).then(renderCtl)}
+function rmUser(uid){if(!isOwner())return;const x=USERS[uid];if(!x)return;
+ if(!confirm('Delete login user '+x.email+'?'))return;dropUser(uid).then(renderCtl)}
+function renderCtl(){const em=new Set(ST.map(x=>(x.u||'').toLowerCase()));if(OWNER)em.add(OWNER.email);
+ const nu=Object.entries(USERS).filter(([id,x])=>x&&x.email&&!em.has(x.email)&&!DIS.includes((x.email||'').toLowerCase()));
+ $('newUsers').innerHTML=nu.length?'<div class="card" style="margin-top:10px;border-left:5px solid var(--gold)"><b>🆕 New Login Users (access pending)</b>'+nu.map(([id,x])=>`<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px"><div><b>✉️ ${esc(x.email)}</b><div class="hint">Last login: ${x.last?new Date(x.last).toLocaleString('en-GB'):'—'}</div></div><div style="display:flex;gap:6px"><button class="btn g" onclick="giveAccess('${id}')">✅ Grant Access</button><button class="btn r" onclick="rmUser('${id}')">🗑 Delete</button></div></div>`).join('')+'</div>':'';
+ $('staffList').innerHTML=ST.length?ST.map(s=>`<div class="card" style="margin-top:10px"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div style="flex:1;min-width:180px"><b style="font-size:17px">👤 ${esc(s.name)}</b><div class="hint">Email (User ID): <b>${esc(s.u)}</b></div></div>
+ <div class="vb"><button style="background:var(--red)" onclick="rmStaff('${s.id}')">🗑 Delete</button></div></div></div>`).join(''):'<div class="card hint" style="margin-top:10px">No staff yet.</div>'}
+function renderTrash(){$('trashList').innerHTML=TRS.length?[...TRS].reverse().map(t=>`<div class="card" style="margin-bottom:10px;border-left:5px solid var(--red)"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div style="flex:1;min-width:180px"><b>${t.type==='student'?'🎓 Student':'💰 Payment'}: ${esc(t.label)}</b>${t.type==='student'?`<div class="hint">Includes ${(t.pays||[]).length} payment record(s)</div>`:''}<div class="hint">🗑 Deleted by: <b>${esc(t.by)}</b> (${t.role==='owner'?'Owner':'Staff'})</div><div class="hint">🕒 ${new Date(t.at).toLocaleString('en-GB')}</div></div>
+ <div class="vb"><button style="background:var(--green)" onclick="restoreT('${t.id}')">♻️ Restore</button><button style="background:var(--red)" onclick="purgeT('${t.id}')">❌ Delete Forever</button></div></div></div>`).join(''):'<div class="card hint">Trash is empty.</div>'}
+function restoreT(id){if(!isOwner())return;const t=TRS.find(x=>x.id===id);if(!t)return;
+ if(t.type==='student'){if(S.some(x=>x.id===t.student.id))return alert('This student already exists.');S.push(t.student);(t.pays||[]).forEach(p=>{if(P.some(x=>x.rno===p.rno))p.rno=nextRno();P.push(p)})}
+ else{const s=S.find(x=>x.id===t.sid);if(!s)return alert('Please restore this student from Trash first.');
+  t.parts.forEach(pt=>{let p=P.find(x=>x.rno===pt.rno&&x.sid===t.sid);if(!p){p={rno:P.some(x=>x.rno===pt.rno)?nextRno():pt.rno,sid:t.sid,date:pt.date,amt:0,months:[],det:[]};P.push(p)}
+   p.det=dets(p).concat(pt.det.map(d=>({m:d.m,amt:d.amt})));p.amt=p.det.reduce((a,d)=>a+d.amt,0);if(p.disc)p.disc=p.det.some(d=>d.disc)?p.det.reduce((a,d)=>a+(d.disc||0),0):Math.min(p.disc,p.amt);p.months=p.det.map(d=>d.m);delete p.due});
+  P.filter(p=>p.sid===s.id).forEach(p=>p.det.forEach(d=>d.bal=Math.max(0,kfee(s,d.m)-mpaid(s,d.m))))}
+ TRS=TRS.filter(x=>x.id!==id);sv('af_students',S);sv('af_pays',P);sv('af_trash',TRS);renderTrash();drawNav();alert('✅ Restored.')}
+function purgeT(id){if(isOwner()&&confirm('Delete forever? This cannot be undone.')){TRS=TRS.filter(x=>x.id!==id);sv('af_trash',TRS);renderTrash();drawNav()}}
+function emptyTrash(){if(isOwner()&&TRS.length&&confirm('Empty the whole Trash? Everything will be deleted forever.')){TRS=[];sv('af_trash',TRS);renderTrash();drawNav()}}
+// ---------- edit student ----------
+let EDID=null;
+function editStudent(id){const s=S.find(x=>x.id===id);if(!s)return;EDID=id;
+ let e=$('edst');if(!e){e=document.createElement('div');e.id='edst';e.className='ov';e.style.cssText='align-items:flex-start;overflow:auto;z-index:70';document.body.appendChild(e)}
+ const fe=canView();
+ e.innerHTML=`<div class="box" style="max-width:460px;text-align:left;margin:10px auto"><div style="display:flex;justify-content:space-between;align-items:flex-start"><h2 style="margin:0">✏️ Edit Student</h2><button class="btn r" style="padding:4px 10px" onclick="closeEdit()">✕</button></div>
+ <label>Student Name</label><input id="en" value="${esc(s.name)}"><label>Father's Name</label><input id="ef" value="${esc(s.father)}">
+ <label>Mobile Number</label><input id="em" type="tel" maxlength="10" inputmode="numeric" value="${esc(s.mobile)}">
+ <div class="row"><div><label>Class</label><select id="ec">${CL.map(c=>`<option value="${c}"${c===s.cls?' selected':''}>${c==='JKG'||c==='SKG'?c:'Class '+c}</option>`).join('')}</select></div><div><label>Section</label><select id="es">${['A','B'].map(c=>`<option${c===s.sec?' selected':''}>${c}</option>`).join('')}</select></div></div>
+ ${fe?`<div class="row"><div><label>Monthly Fee (₹)</label><input id="efee" type="number" value="${s.fee}"></div><div><label>Admission Fee (₹)</label><input id="eadm" type="number" value="${s.adm==null?'':s.adm}"></div></div>`:''}
+ <label>Admission Date</label><input id="ed" type="date" value="${esc(s.date)}">
+ <div class="hint" style="margin-top:8px">Changing the monthly fee or admission date recalculates this student's pending months. Payments already received are not changed.</div>
+ <button class="btn g big" onclick="saveEdit()">💾 Save Changes</button></div>`;e.style.display='flex'}
+function closeEdit(){const e=$('edst');if(e)e.style.display='none';EDID=null}
+function saveEdit(){const s=S.find(x=>x.id===EDID);if(!s)return closeEdit();
+ const n=$('en').value.trim(),f=$('ef').value.trim(),m=$('em').value.replace(/\D/g,''),d=$('ed').value;
+ if(!n||!f||m.length!==10)return alert('Student name, father name and a 10-digit mobile number are required.');
+ if(!d)return alert('Please select the admission date.');
+ s.name=n;s.father=f;s.mobile=m;s.cls=$('ec').value;s.sec=$('es').value;s.date=d;
+ if($('efee')){s.fee=Number($('efee').value)||0;s.adm=Number($('eadm').value)||0}
+ recalc(s);sv('af_students',S);sv('af_pays',P);closeEdit();
+ if($('pn').style.display==='flex'&&PN===s.id)renderPN();
+ refreshUI();alert('✅ Student details updated.')}
+// ---------- add student ----------
+function autoFee(){$('afee').value=F[$('ac').value]||0}
+function saveStudent(){const n=$('an').value.trim(),f=$('af').value.trim(),m=$('am').value.replace(/\D/g,'');
+ if(!n||!f||m.length!==10)return alert('Student name, father name and a 10-digit mobile number are required.');
+ const s={id:'s'+Date.now(),name:n,father:f,mobile:m,cls:$('ac').value,sec:$('as').value,fee:Number($('afee').value)||0,adm:Number($('aadm').value)||0,date:$('ad').value||today(),paid:{}};
+ S.push(s);sv('af_students',S);
+ const msg=`🌟 प्रिय ${s.father} जी,\n\nआपके बच्चे *${s.name}* का *${NAME}* में Class ${s.cls} (Sec ${s.sec}) में एडमिशन सफलतापूर्वक हो गया है।\n━━━━━━━━━━━━━━━\n📅 Admission Date: ${fdate(s.date)}\n💰 Monthly Fee: ${fm(s.fee)}\n🎓 Admission Fee = ${fm(s.adm)}\n━━━━━━━━━━━━━━━\nधन्यवाद 🙏\n${NAME}\n${ADDR}\n${DIR}`;
+ ['an','af','am'].forEach(i=>$(i).value='');$('aadm').value=500;$('ad').value=today();
+ go('home');admPopup(s,msg)}
+let ADMM=null;
+function admPopup(s,msg){ADMM={s,msg};let e=$('adone');if(!e){e=document.createElement('div');e.id='adone';e.className='ov';document.body.appendChild(e)}
+ e.innerHTML=`<div class="box" style="max-width:380px"><h3 style="margin:0 0 6px">✅ Student added</h3><div class="hint">${esc(s.name)} | Class ${s.cls}-${s.sec}</div><div class="hint" style="margin:8px 0 12px">Monthly Fee = ${fm(s.fee)} | Admission Fee = ${fm(s.adm)}<br>Send the admission message 👇</div><div class="vb"><button style="background:#25d366" onclick="admWa()">💬 Send on WhatsApp</button><button style="background:#00838f" onclick="admSms()">📱 Send SMS</button><button style="background:var(--red)" onclick="$('adone').style.display='none'">✕ Close</button></div></div>`;e.style.display='flex'}
+function admWa(){if(ADMM)window.open('https://wa.me/'+num(ADMM.s.mobile)+'?text='+encodeURIComponent(ADMM.msg),'_blank')}
+function admSms(){if(ADMM)location.href='sms:'+ADMM.s.mobile+'?body='+encodeURIComponent(ADMM.msg)}
+// ---------- messages ----------
+function remind(id,how){const s=S.find(x=>x.id===id),x=stats(s);
+ if(how==='wa'&&!x.due&&!admDue(s)){const L=spays(s);if(L.length){window.open('https://wa.me/'+num(s.mobile)+'?text='+encodeURIComponent(paidMsg(s,L[L.length-1],0)),'_blank');return}}
+ const ad=admDue(s),msg=(x.due||ad)?`🌟 प्रिय ${s.father} जी,\n\nआपके बच्चे *${s.name}* (Class ${s.cls}-${s.sec}) की fees बाकी है।\n━━━━━━━━━━━━━━━\nबकाया माह: ${x.months.map(mname).concat(ad?['Admission Fee']:[]).join(', ')}\nकुल बकाया: *${fm(x.due+ad)}*\n━━━━━━━━━━━━━━━\nकृपया जल्द से जल्द fees जमा करें। धन्यवाद 🙏\n${NAME}\n${DIR}`:`🌟 प्रिय ${s.father} जी,\n\nआपके बच्चे *${s.name}* की सभी fees जमा हैं। कोई बकाया नहीं है। धन्यवाद 🙏\n${NAME}`;
+ window.open(how==='wa'?'https://wa.me/'+num(s.mobile)+'?text='+encodeURIComponent(msg):'sms:'+s.mobile+'?body='+encodeURIComponent(msg),'_blank')}
+function waReceipt(s,p){const det=p.det||p.months.map(m=>({m,amt:s.fee,bal:0})),due=p.due!=null?p.due:stats(s).due;
+ const msg=`🌟 प्रिय,\n-------------------\nआपके बच्चे *${s.name}* की fees का भुगतान प्राप्त हो गया है।\n━━━━━━━━━━━━━━━\nमहीने:\n${det.map((d,i)=>(i+1)+'. '+mname(d.m)+' - '+fm(d.amt)+(d.bal>0?' (बाकी '+fm(d.bal)+')':'')).join('\n')}\n━━━━━━━━━━━━━━━\n${p.disc?'Total Amount = '+fm(p.amt)+'\nDiscount = -'+fm(p.disc)+'\n':''}Total Received = *${fm(rcv(p))}*\nReceipt No: ${pad(p.rno)} | Date: ${fdate(p.date)}\nबाकी राशि (Balance): *${fm(due)}*\n━━━━━━━━━━━━━━━\nधन्यवाद 🙏\n${NAME}\n${DIR}`;
+ return 'https://wa.me/'+num(s.mobile)+'?text='+encodeURIComponent(msg)}
+// ---------- print helpers (Integral-style layout) ----------
+const longDate=()=>new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'});
+const AYs=()=>{const d=new Date(),y=d.getFullYear();return d.getMonth()>=3?y:y-1};
+const ayl=()=>AYs()+'–'+String(AYs()+1).slice(2);
+const mf=m=>m==='ADM'?'Admission Fee':new Date(m+'-01T00:00:00').toLocaleString('en-GB',{month:'long',year:'numeric'});
+function page(body,note){return `<div class="pg"><div class="hbox"><div class="hn">AAFIYA COACHING CENTRE</div><div class="hs"><i>${ADDR}</i></div><hr><div class="hs">Chairperson: Md Hasangir Khan &nbsp;|&nbsp; Mob: 9262515150</div></div><div class="gen">Report Generated: ${longDate()} &nbsp;|&nbsp; Academic Year ${ayl()}</div>${body}<div class="note">${note||'🔔 कृपया शीघ्र भुगतान करें &nbsp;|&nbsp; Please pay at the earliest'} &nbsp;|&nbsp; Contact: 9262515150</div><div class="fdev">${DEV}</div></div>`}
+function printWin(title,pages,extra){const w=window.open('','_blank');if(!w)return alert('Please allow popups.');
+ w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${title}</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+body{font-family:'Noto Serif',Georgia,'Times New Roman',serif;margin:0;color:#111;font-size:11pt;background:#fff}.pg{max-width:200mm;margin:0 auto;padding:8mm 6mm;page-break-after:always}.pg:last-child{page-break-after:auto}
+.hbox{border:3px solid #111;text-align:center;padding:12px 10px}.hn{font-size:22pt;font-weight:bold;letter-spacing:5px}.hs{font-size:10.5pt;margin:3px 0}.hbox hr{border:0;border-top:1px solid #777;margin:8px 16px}
+.gen{text-align:right;font-size:9pt;font-style:italic;color:#666;margin:10px 2px}.ttl{text-align:center;font-weight:bold;font-size:13pt;letter-spacing:2px;margin:8px 0}
+table{width:100%;border-collapse:collapse}.info{border:2px solid #333;margin-bottom:12px}.info td{border:2px solid #fff;background:#fff;padding:7px 9px;font-size:10.5pt;outline:1px solid #ccc}.info td.l{background:#e8e8e8;font-weight:bold;width:20%}
+.mt th{background:#222;color:#fff;padding:9px 6px;font-size:10pt;text-align:left;border:1px solid #444}.mt td{padding:8px 7px;border:1.5px solid #ccc;font-size:10pt}.mt tr:nth-child(even) td{background:#fafafa}.mt tr.p td{background:#e6e6e6;font-weight:bold}.c{text-align:center}.r{text-align:right}.mt th.c{text-align:center}.mt th.r{text-align:right}
+.sum{border:2px solid #111;padding:10px 16px;margin-top:14px}.st{font-weight:bold;letter-spacing:1px;border-bottom:2px solid #111;padding-bottom:5px;margin-bottom:4px}.sr{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dotted #aaa;font-size:11pt}.tot{display:flex;justify-content:space-between;border-top:2px solid #111;margin-top:6px;padding-top:8px;font-size:13pt;font-weight:bold}
+.note{border:1px dashed #888;text-align:center;padding:7px;font-size:10pt;margin-top:10px}.fdev{text-align:center;font-size:7.5pt;color:#666;margin-top:8px;border-top:1px dotted #bbb;padding-top:5px}
+#pb{position:sticky;top:0;background:#0a1628;color:#c9a84c;padding:10px;text-align:center;font-family:Arial,sans-serif;font-size:14px}#pb button,#pb a{padding:8px 14px;margin:2px;font-weight:bold;border:0;border-radius:6px;cursor:pointer;text-decoration:none;font-size:13px;display:inline-block}
+@media print{#pb{display:none}@page{size:A4;margin:8mm}.mt tr.p td,.info td.l,.mt th{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body><div id="pb">📄 ${NAME} <button onclick="print()">🖨️ Print</button><button style="background:#c9a84c;color:#0a1628" onclick="print()">⬇️ Save as PDF</button>${extra||''}</div>${pages}</body></html>`);w.document.close()}
+const info=(s,extra)=>`<table class="info"><tr><td class="l">Student Name</td><td><b>${esc(s.name)}</b></td><td class="l">Class / Section</td><td>Class ${s.cls} — Section ${s.sec}</td></tr><tr><td class="l">Father's Name</td><td colspan="3">${esc(s.father)}</td></tr><tr><td class="l">Mobile</td><td>${esc(s.mobile)}</td><td class="l">Admission Date</td><td>${fdate(s.date)}</td></tr><tr><td class="l">Monthly Fee</td><td><b>${fm(s.fee)}</b></td><td class="l">Fee Type</td><td>Tuition</td></tr><tr><td class="l">Admission Fee</td><td colspan="3"><b>${admTxt(s)}</b></td></tr>${extra||''}</table>`;
+const sumBox=(t,rows,tl,tv)=>`<div class="sum"><div class="st">${t}</div>${rows.map(r=>`<div class="sr"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')}<div class="tot"><span>${tl}</span><span>${tv}</span></div></div>`;
+const TR=(n,a,cls)=>`<tr${cls?` class="${cls}"`:''}><td class="c">${n}</td>${a.map((x,i)=>`<td class="${i===1?'c':i>1?'r':''}">${x}</td>`).join('')}</tr>`;
+function ledgerBody(s){const c=cur(),tot=ptotal(s);let pn=0,pa=0,pend=0,pdc=0;
+ let ad=admDue(s),admH='';
+ if((s.adm||0)>0||admPaid(s)>0){const ap=admPaid(s),dc=mdisc(s,'ADM'),cr=Math.max(0,ap-dc),dcs=dc?fm(dc):'—',dd=mdate(s,'ADM')||'—';pa+=cr;pdc+=dc;
+  admH=ad===0?TR('Adm',['Admission Fee','√ PAID',fm(s.adm||ap),dcs,'<b>'+fm(cr)+'</b>','√ Clear',dd],'p'):ap>0?TR('Adm',['<b>Admission Fee</b>','<b>PARTIAL</b>',fm(s.adm),dcs,'<b>'+fm(cr)+'</b>',fm(ad),dd],'p'):TR('Adm',['<b>Admission Fee</b>','<b>PENDING</b>',fm(s.adm),'—','—',fm(ad),'—'])}
+ const rows=admH+[...Array(12)].map((_,i)=>{const m=addM(AYs()+'-04',i),q=mst(s,m,tot),n=i+1;
+  if(!q)return TR(n,[mf(m),'<i>NA</i>','—','—','—','—','—']);const d=mdate(s,m)||'—',dc=mdisc(s,m),cr=Math.max(0,q.paid-dc),dcs=dc?fm(dc):'—';
+  if(q.bal===0){pn++;pa+=cr;pdc+=dc;return TR(n,[mf(m),'√ PAID',fm(s.fee),dcs,'<b>'+fm(cr)+'</b>','√ Clear',d],'p')}
+  if(q.paid>0){pa+=cr;pdc+=dc;if(m<=c)pend+=q.bal;return TR(n,['<b>'+mf(m)+'</b>','<b>PARTIAL</b>',fm(s.fee),dcs,'<b>'+fm(cr)+'</b>',fm(q.bal),d],'p')}
+  if(m<=c){pend+=q.bal;return TR(n,['<b>'+mf(m)+'</b>','<b>PENDING</b>',fm(s.fee),'—','—',fm(q.bal),'—'])}
+  return TR(n,[mf(m),'—','—','—','—','—','—'])}).join('');
+ const x=stats(s),back=Math.max(0,x.due-pend);
+ const body=`<table class="mt"><tr><th class="c">S.No</th><th>Month</th><th class="c">Status</th><th class="r">Amount</th><th class="r">Discount</th><th class="r">Credit</th><th class="r">Balance</th><th class="r">Payment Date</th></tr>${rows}</table>`+
+ sumBox('FEE SUMMARY',[['Months Fully Paid (This Year):',pn+' month'+(pn==1?'':'s')],['Total Amount Paid (Credited):',fm(pa)]].concat(pdc?[['Total Discount:',fm(pdc)]]:[]).concat([['Pending (This Year):',fm(pend)]]).concat(ad?[['Admission Fee Pending:',fm(ad)]]:[]).concat(back?[['Previous Years Dues:',fm(back)]]:[]).concat(x.adv?[['Advance Credit:',fm(x.adv)]]:[]),'TOTAL AMOUNT PAYABLE:',fm(x.due+ad));
+ return body}
+function ledgerHtml(s){return page(info(s)+ledgerBody(s))}
+function ledger(id){const s=S.find(x=>x.id===id);printWin('Full Report - '+s.name,ledgerHtml(s),`<a style="background:#25d366;color:#fff" href="https://wa.me/${num(s.mobile)}" target="_blank">💬 WhatsApp</a>`)}
+function slip(id,rno){const s=S.find(x=>x.id===id);let p=rno?P.find(x=>x.rno===rno):[...P].reverse().find(x=>x.sid===id);
+ if(!p)return alert('No payments found for this student.');const det=p.det||p.months.map(m=>({m,amt:s.fee,bal:0})),due=p.due!=null?p.due:stats(s).due;
+ const rows=det.map((d,i)=>TR(i+1,[mf(d.m),d.bal>0?'<b>PARTIAL</b>':'√ PAID',fm(kfee(s,d.m)),'<b>'+fm(d.amt)+'</b>',d.bal>0?fm(d.bal):'√ Clear'],'p')).join('');
+ const body=`<div class="ttl">FEE PAYMENT RECEIPT</div>`+info(s,`<tr><td class="l">Receipt No.</td><td><b>${pad(p.rno)}</b></td><td class="l">Payment Date</td><td>${p.date}</td></tr>`)+`<table class="mt"><tr><th class="c">S.No</th><th>Month</th><th class="c">Status</th><th class="r">Amount</th><th class="r">Credit</th><th class="r">Balance</th></tr>${rows}</table>`+sumBox('PAYMENT SUMMARY',covRows(det).concat(p.disc?[['Total Amount:',fm(p.amt)],['Discount:','- '+fm(p.disc)]]:[]).concat([['Balance Due (after this payment):',fm(due)]]),p.disc?'TOTAL RECEIVED AMOUNT:':'TOTAL AMOUNT PAID:',fm(rcv(p)));
+ printWin('Payment Receipt',page(body,'🙏 धन्यवाद &nbsp;|&nbsp; Thank you for your payment'),`<a style="background:#25d366;color:#fff" href="${waReceipt(s,p)}" target="_blank">💬 WhatsApp Receipt</a>`)}
+function demandHtml(s){const x=stats(s),ad=admDue(s),ap=admPaid(s);const admRow=ad>0?TR('Adm',['<b>Admission Fee</b>','<b>'+(ap>0?'PARTIAL':'PENDING')+'</b>',fm(s.adm),ap>0?fm(ap):'--',fm(ad)]):'';const rows=admRow+x.months.map((m,i)=>{const q=mst(s,m,x.tot);return TR(i+1,['<b>'+mf(m)+'</b>','<b>'+(q.paid>0?'PARTIAL':'PENDING')+'</b>',fm(s.fee),q.paid>0?fm(q.paid):'—',fm(q.bal)])}).join('');
+ return page(`<div class="ttl">FEE DEMAND BILL</div>`+info(s)+`<table class="mt"><tr><th class="c">S.No</th><th>Month</th><th class="c">Status</th><th class="r">Amount</th><th class="r">Credit</th><th class="r">Balance</th></tr>${rows}</table>`+sumBox('DEMAND SUMMARY',[['Pending Months:',x.months.length+' month'+(x.months.length==1?'':'s')],['Monthly Fee:',fm(s.fee)]].concat(ad?[['Admission Fee Pending:',fm(ad)]]:[]),'TOTAL AMOUNT PAYABLE:',fm(x.due+ad)))}
+function demand(id){const s=S.find(x=>x.id===id);if(!stats(s).due&&!admDue(s))return alert('This student has no dues.');printWin('Demand Bill - '+s.name,demandHtml(s),`<button style="background:#25d366;color:#fff" onclick="opener.remind('${s.id}','wa')">💬 WhatsApp</button>`)}
+function allDemand(){const L=S.filter(s=>stats(s).due);if(!L.length)return alert('No pending students.');printWin('Demand Bills',L.map(demandHtml).join(''))}
+const repTable=(h,rows,al)=>`<table class="mt"><tr>${h.map((x,i)=>`<th class="${al&&al.includes(i)?'r':''}">${x}</th>`).join('')}</tr>${rows}</table>`;
+function monthReport(){const m=$('rm').value||cur(),c=$('rc').value;let L=S.filter(s=>ym(s.date)<=m&&(!c||s.cls===c)),tp=0,td=0,pc=0;
+ const rows=L.map((s,i)=>{const q=mst(s,m),d=mdate(s,m);tp+=q.paid;td+=q.bal;if(!q.bal)pc++;return`<tr${!q.bal?' class="p"':''}><td>${i+1}</td><td>${esc(s.name)}</td><td>${esc(s.father)}</td><td>${s.cls}-${s.sec}</td><td>${esc(s.mobile)}</td><td>${!q.bal?'√ PAID':q.paid>0?'PARTIAL':'PENDING'}</td><td class="r">${q.paid?fm(q.paid):'—'}</td><td class="r">${q.bal?fm(q.bal):'—'}</td><td>${d||'—'}</td></tr>`}).join('');
+ printWin('Month Report',page(`<div class="ttl">FEE COLLECTION REPORT — ${mf(m).toUpperCase()}${c?' | CLASS '+c:''}</div>`+repTable(['S.No','Student','Father','Class','Mobile','Status','Paid','Dues','Date'],rows,[6,7])+sumBox('MONTH SUMMARY',[['Total Students:',L.length],['Fully Paid / Pending:',pc+' / '+(L.length-pc)],['Total Collected:',fm(tp)]],'TOTAL DUES:',fm(td))))}
+function pendingReport(){let t=0;const rows=S.map(s=>({s,x:stats(s)})).filter(o=>o.x.due).map((o,i)=>{t+=o.x.due;return`<tr><td>${i+1}</td><td>${esc(o.s.name)}</td><td>${esc(o.s.father)}</td><td>${o.s.cls}-${o.s.sec}</td><td>${esc(o.s.mobile)}</td><td>${o.x.months.length}</td><td class="r">${fm(o.x.due)}</td></tr>`}).join('');
+ printWin('Pending',page(`<div class="ttl">FULL PENDING FEE REPORT</div>`+repTable(['S.No','Student','Father','Class','Mobile','Months','Pending'],rows,[6])+sumBox('PENDING SUMMARY',[['Students with Dues:',rows?rows.split('<tr>').length-1:0]],'TOTAL PENDING:',fm(t))))}
+function todayReport(){const L=P.filter(p=>p.date===today());let t=0;const rows=L.map((p,i)=>{const s=S.find(x=>x.id===p.sid)||{};t+=rcv(p);return`<tr><td>${i+1}</td><td>${pad(p.rno)}</td><td>${esc(s.name)}</td><td>${s.cls||''}-${s.sec||''}</td><td>${p.months.map(mname).join(', ')}</td><td class="r">${fm(rcv(p))}</td><td class="r">${p.due!=null?fm(p.due):'—'}</td></tr>`}).join('');
+ printWin('Today',page(`<div class="ttl">TODAY'S COLLECTION — ${fdate(today())}</div>`+repTable(['S.No','Receipt','Student','Class','Months','Paid','Balance'],rows,[5,6])+sumBox('COLLECTION SUMMARY',[['Total Receipts:',L.length]],'TOTAL COLLECTED:',fm(t)),'🙏 धन्यवाद &nbsp;|&nbsp; Thank you'))}
+// ---------- fees / misc ----------
+function del(id){if(!needDel())return;const s=S.find(x=>x.id===id);if(!s||!confirm('Move this student to Trash? Their payments will go with them.'))return;toTrash({type:'student',label:s.name+' (Class '+s.cls+'-'+s.sec+')',student:s,pays:P.filter(p=>p.sid===id)});S=S.filter(x=>x.id!==id);P=P.filter(p=>p.sid!==id);sv('af_students',S);sv('af_pays',P);renderAll()}
+function saveFees(){CL.forEach(c=>F[c]=Number($('f-'+c).value)||0);sv('af_fees',F);autoFee();alert('✅ Fee structure saved (applies to new students).')}
+function init(){drawNav();setTimeout(protectBoot,3000);
+ const opt=CL.map(c=>`<option value="${c}">${c==='JKG'||c==='SKG'?c:'Class '+c}</option>`).join('');$('ac').innerHTML=opt;$('rc').innerHTML='<option value="">All Classes</option>'+CL.map(c=>`<option>${c}</option>`).join('');
+ $('feeGrid').innerHTML=CL.map(c=>`<div><label>${c}</label><input type="number" id="f-${c}" value="${F[c]||0}"></div>`).join('');
+ $('ad').value=today();$('rm').value=cur();$('cm').value=cur();$('cc').innerHTML='<option value="">All Classes</option>'+CL.map(c=>`<option value="${c}">${c==='JKG'||c==='SKG'?c:'Class '+c}</option>`).join('');autoFee();go('home')}
+payUi();checkLic();fauth.onAuthStateChanged(u=>{if(u&&!CUR)afterAuth(u)});
+</script></body></html>
